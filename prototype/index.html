@@ -6,13 +6,29 @@
 	<title>Nedtelling prototype</title>
 	<link rel="stylesheet" type="text/css" href="styles/screen.css">
 </head>
-<body>
+<body id="top">
 	<main class="countdown">
+		<div class="accordion accordion--top">
+			<input type="checkbox" name="signin-trigger" id="signin-trigger" class="accordion__trigger" />
+			<div class="accordion__content">
+				<form class="form">
+					<div class="form__split">
+						<input type="text" name="user" value="Anonym Brukersen" placeholder="Hvem er du?" class="" />
+						<button class="">Logg inn</button>
+					</div>
+				</form>
+			</div>
+			<label for="signin-trigger" class="accordion__toggle">
+				<p class="accordion__heading accordion__heading--top">Anonym Brukersen</p>
+			</label>
+		</div>
 		<div class="countdown__current">
-			<div class="countdown__counter">-000 : 00 : 00 : 00.000</div>
-			<div class="countdown__label">
-				<div class="countdown__tag">2024</div>
-				<div class="countdown__date">1. Januar 2024 - kl. 00:00 CET</div>
+			<div class="container">
+				<div class="countdown__counter">-000 : 00 : 00 : 00.000</div>
+				<div class="countdown__label">
+					<div class="countdown__tag">2024</div>
+					<div class="countdown__date">1. Januar 2024 - kl. 00:00 CET</div>
+				</div>
 			</div>
 		</div>
 		<div class="countdown__suggestions">
@@ -98,21 +114,25 @@
 			</div>
 			<div class="chat__anchor"></div>
 		</div>
-		<div class="accordion gutter-right">
-			<label for="trigger" class="accordion__toggle">
+		<div class="accordion accordion--bottom">
+			<label for="compose-trigger" class="accordion__toggle">
 				<h2 class="accordion__heading">Skrive en melding?</h2>
 			</label>
-			<input type="checkbox" name="trigger" id="trigger" class="accordion__trigger" />
+			<input type="checkbox" name="compose-trigger" id="compose-trigger" class="accordion__trigger" />
 			<div class="accordion__content">
-				<form class="compose">
-					<textarea name="message" class="compose__input compose__textarea" placeholder="Hva tenker du på?"></textarea>
-					<div class="compose__split">
-						<input type="text" name="author" placeholder="Hvem er du?" class="compose__input compose__textfield" />
-						<button class="compose__submit">Send</button>
+				<form class="form">
+					<textarea name="message" class="form__input form__textarea" placeholder="Hva tenker du på?"></textarea>
+					<div class="form__split">
+						<label for="eula" class="form__label">
+							<input type="checkbox" name="eula" id="eula" class="form__checkbox" />
+							Jeg godtar <a href="#">brukervilkårene</a>
+						</label>
+						<button class="form__submit">Send</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</section>
+	<a href="#top" class="jump">Til toppen</a>
 </body>
 </html>

@@ -8,13 +8,22 @@
 }
 
 html {
-	--highlight: hsl(0deg 50% 50%);
 	--highlight-focus: hsl(15deg 75% 50%);
-	--highlight-text: hsl(0deg 0% 100%);
+	--highlight-text: white;
+	--highlight: hsl(0deg 50% 50%);
+	--primary-focus: hsl(200deg 100% 33%);
+	--primary-link-focus: hsl(200deg 100% 75%);
+	--primary-link: hsl(200deg 100% 66%);
+	--primary-text: white;
+	--primary-transparent: hsl(200deg 100% 25% / 90%);
 	--primary: hsl(200deg 100% 25%);
-	--secondary: hsl(200deg 33% 33%);
 	--secondary-focus: hsl(200deg 100% 50%);
-	--primary-text: hsl(200deg 0% 100%);
+	--secondary-text: white;
+	--secondary: hsl(200deg 33% 33%);
+	--transition:
+		color 300ms ease-in-out,
+		background-color 300ms ease-in-out,
+		border-color 300ms ease-in-out;
 }
 
 body {
@@ -28,6 +37,77 @@ body {
 	padding: 0 6vw;
 }
 
+h2 {
+	font-weight: 300;
+}
+
+a {
+	transition: var(--transition);
+}
+
+input[type=checkbox] {
+	background-color: transparent;
+	border: 2px solid var(--highlight-text);
+}
+
+input[type=text],
+textarea {
+	background-color: hsl(200deg 50% 90%);
+	border: 3px solid white;
+	font-family: inherit;
+	font-size: inherit;
+	padding: 0.5em 1em;
+	transition: var(--transition);
+}
+	input[type=text]:hover,
+	input[type=text]:focus,
+	textarea:hover,
+	textarea:focus {
+		background-color: hsl(200deg 50% 100%);
+	}
+
+input[type=text] {
+	border-radius: 1em;
+	flex-basis: 8em;
+	flex-grow: 1;
+	min-width: 8em;
+}
+
+textarea {
+	border-radius: 1em 1em 0 1em;
+	display: block;
+	min-height: 6em;
+	resize: vertical;
+	width: 100%;
+}
+
+button {
+	background-color: var(--highlight);
+	border-radius: 1em;
+	border-style: none;
+	color: var(--highlight-text);
+	cursor: pointer;
+	flex-shrink: 1;
+	font-size: inherit;
+	font-weight: 600;
+	line-height: 3;
+	padding: 0 2em;
+	transition: var(--transition);
+}
+	button:hover,
+	button:focus {
+		background-color: var(--highlight-focus);
+	}
+
+.container {
+	background-color: hsl(200deg 0% 100% / 50%);
+	border-radius: 1em;
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
 .tag {
 	background-color: var(--secondary);
 	border-radius: 0.25em;
@@ -37,9 +117,6 @@ body {
 	margin-bottom: 0.25em;
 	padding: 0.25em 0.5em;
 	text-decoration: none;
-	transition-duration: 0.3s;
-	transition-property: background-color;
-	transition-timing-function: ease-in-out;
 }
 	.tag:before {
 		content: "#";
@@ -60,7 +137,7 @@ body {
 		display: flex;
 		flex-direction: column;
 		flex-grow: 1;
-		gap: 1em;
+		/* gap: 1em; */
 		justify-content: center;
 	}
 
@@ -98,7 +175,7 @@ body {
 
 	.countdown__suggestions {
 		flex-shrink: 1;
-		padding: 1em 0;
+		padding: 2em 0;
 		text-align: end;
 		text-align: start;
 	}
@@ -156,15 +233,44 @@ body {
 	}
 
 .accordion {
-	position: relative;
+	/* position: relative; */
+	position: fixed;
+	z-index: 2;
 }
+	/* .accordion--fixed {
+		position: fixed;
+		z-index: 2;
+	} */
+	.accordion--top {
+		/* position: fixed;
+		z-index: 2; */
+		left: 6vw;
+		top: 0;
+	}
+
+	.accordion--bottom {
+		/* position: fixed;
+		z-index: 2; */
+		right: 6vw;
+		bottom: 0;
+	}
+
 	.accordion__heading {
-		background-color: var(--primary);
+		background-color: var(--primary-transparent);
 		border-radius: 1rem 1rem 0 0;
 		color: var(--primary-text);
-		line-height: 1;
+		line-height: 2;
 		margin: 0;
-		padding: 1rem 2rem 0.5rem 2rem;
+		padding: 0 2rem;
+		transition: var(--transition);
+	}
+		.accordion__heading:hover,
+		.accordion__heading:focus {
+			background-color: var(--primary-focus);
+		}
+
+	.accordion__heading--top {
+		border-radius: 0 0 1rem 1rem;
 	}
 
 	.accordion__trigger {
@@ -175,69 +281,79 @@ body {
 	}
 
 	.accordion__content {
-		background-color: var(--primary);
+		background-color: var(--primary-transparent);
+		color: var(--primary-text);
+		max-height: 0vh;
 		overflow: hidden;
 		transition-duration: 0.3s;
 		transition-property: max-height;
 		transition-timing-function: ease-in-out;
 	}
+		.accordion__content a:any-link {
+			color: var(--primary-link);
+		}
+
+		.accordion__content a:hover,
+		.accordion__content a:focus {
+			color: var(--primary-link-focus);
+		}
+
 		.accordion__trigger:checked ~ .accordion__content {
 			max-height: 100vh;
 		}
 
-.compose {
+.form {
 	padding: 1em 2em;
 }
-	.compose__fields {
+	/* .form__fields {
 		border-style: none;
 		margin: 0.5em 0 0 0;
 		padding: 0;
-	}
+	} */
 
-	.compose__input {
+	/* .form__input {
 		background-color: hsl(200deg 0% 100% / 50%);
 		border: 3px solid white;
 		font-family: inherit;
 		font-size: inherit;
 		padding: 0.5em 1em;
-		transition-duration: 0.3s;
-		transition-property: background-color;
-		transition-timing-function: ease-in-out;
+		transition: var(--transition);
 	}
-		.compose__input:hover,
-		.compose__input:focus {
+		.form__input:hover,
+		.form__input:focus {
 			background-color: hsl(200deg 0% 100% / 90%);
-		}
+		} */
 
-	.compose__textfield {
+	/* .form__textfield {
 		border-radius: 1em;
 		flex-basis: 8em;
 		flex-grow: 1;
 		min-width: 8em;
 	}
 
-	.compose__textarea {
+	.form__textarea {
 		border-radius: 1em 1em 0 1em;
 		display: block;
 		min-height: 6em;
 		resize: vertical;
 		width: 100%;
-	}
+	} */
 
-	.compose__split {
+	.form__split {
 		align-content: stretch;
-		align-items: stretch;
+		align-items: center;
 		display: flex;
-		flex-direction: row-reverse;
+		flex-direction: row;
 		flex-wrap: wrap;
-		gap: 0.5em;
+		gap: 1em;
 		justify-content: space-between;
 		margin-top: 0.5em;
+		line-height: 3;
 	}
 
-	.compose__submit {
-		background-color: var(--highlight);
+	.form__submit {
 		border-radius: 1em 0 1em 1em;
+		/* background-color: var(--highlight);
 		border-style: none;
 		color: var(--highlight-text);
 		cursor: pointer;
@@ -246,14 +362,25 @@ body {
 		font-weight: 600;
 		line-height: 3;
 		padding: 0 2em;
-		transition-duration: 0.3s;
-		transition-property: background-color;
-		transition-timing-function: ease-in-out;
+		transition: var(--transition); */
 	}
-		.compose__submit:hover,
-		.compose__submit:focus {
+		/* .form__submit:hover,
+		.form__submit:focus {
 			background-color: var(--highlight-focus);
-		}
+		} */
+
+.jump {
+	line-height: 2;
+	padding: 0 2em;
+	color: var(--secondary-text);
+	background-color: var(--secondary);
+	position: fixed;
+	top: 0;
+	right: 6vw;
+	z-index: 2;
+	border-radius: 0 0 1em 1em;
+	text-decoration: none;
+}
 
 @media (min-width: 44em) {
 
@@ -269,9 +396,9 @@ body {
 		cursor: pointer;
 	}
 
-	.accordion__content {
+	/* .accordion__content {
 		max-height: 0vh;
-	}
+	} */
 
 	.countdown,
 	.chat {
@@ -280,9 +407,10 @@ body {
 
 	.chat {
 		max-height: 100vh;
+		/* align-self: flex-end; */
 	}
 
 	.countdown__counter {
-		font-size: 4vw;
+		font-size: 3.5vw;
 	}
 }
