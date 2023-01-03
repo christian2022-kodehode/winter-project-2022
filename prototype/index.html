@@ -7,38 +7,75 @@
 	<link rel="stylesheet" type="text/css" href="styles/screen.css">
 </head>
 <body id="top">
+<!-- <div style="width: 50%; position: fixed; height: 2em; border-top: 1px solid red; left: 0; top: 50%; z-index: 99"></div>
+<div style="width: 50%; position: fixed; height: 2em; border-bottom: 1px solid red; right: 0; top: 50%; z-index: 99"></div>
+<div style="width: 41%; position: fixed; height: 2em; background: rgba(0,0,255,0.5); left: 6%; top: 50%; z-index: 99"></div>
+<div style="width: 41%; position: fixed; height: 2em; background: rgba(0,0,255,0.5); right: 6%; top: 50%; z-index: 99"></div> -->
+<!-- <div style="width: 2em; position: fixed; height: 11.5em; background: rgba(0,0,255,0.5); left: 6%; bottom: 0; z-index: 99"></div>
+<div style="width: 2em; position: fixed; height: 5em; background: rgba(0,0,255,0.5); left: 6%; top: 0; z-index: 99"></div> -->
 	<main class="countdown">
-		<div class="accordion accordion--top">
-			<input type="checkbox" name="signin-trigger" id="signin-trigger" class="accordion__trigger" />
-			<div class="accordion__content">
-				<form class="form">
-					<div class="form__split">
-						<input type="text" name="user" value="Anonym Brukersen" placeholder="Hvem er du?" class="" />
-						<button class="">Logg inn</button>
+
+		<div class="accordion accordion--primary accordion--top accordion--signin">
+			<input type="checkbox" name="trigger-signin" id="trigger-signin" class="accordion__trigger" />
+			<div class="accordion__container">
+				<form class="accordion__content">
+					<div class="split">
+						<input type="text" name="user" value="Anonym Brukersen" placeholder="Hvem er du?" class="split__grow" />
+						<button class="split__shrink">Logg inn</button>
 					</div>
 				</form>
 			</div>
-			<label for="signin-trigger" class="accordion__toggle">
-				<p class="accordion__heading accordion__heading--top">Anonym Brukersen</p>
+			<label for="trigger-signin" class="accordion__toggle accordion__header accordion__header--invert">
+				Anonym Brukersen
 			</label>
 		</div>
+
 		<div class="countdown__current">
 			<div class="container">
-				<div class="countdown__counter">-000 : 00 : 00 : 00.000</div>
 				<div class="countdown__label">
-					<div class="countdown__tag">2024</div>
+					<h1 class="countdown__tag">2024</h1>
 					<div class="countdown__date">1. Januar 2024 - kl. 00:00 CET</div>
+				</div>
+				<div class="countdown__counter">-000 : 00 : 00 : 00.000</div>
+			</div>
+			<div class="accordion">
+				<label for="trigger-channel" class="accordion__toggle">
+					<p class="accordion__header">&darr; Vis alle nedtellinger</p>
+				</label>
+				<input type="checkbox" name="trigger-channel" id="trigger-channel" class="accordion__trigger" />
+				<div class="accordion__container">
+					<div class="accordion__content countdown__suggestions">
+						<a href="#" class="tag">jul2023</a>
+						<a href="#" class="tag">dommedag</a>
+						<a href="#" class="tag">valg2025</a>
+						<a href="#" class="tag">2026</a>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="countdown__suggestions">
-			<a href="#" class="tag">jul2023</a>
-			<a href="#" class="tag">dommedag</a>
-			<a href="#" class="tag">valg2025</a>
-			<a href="#" class="tag">2026</a>
+		<div class="accordion accordion--primary accordion--fixed accordion--bottom accordion--compose">
+			<label for="trigger-compose" class="accordion__toggle">
+				<h2 class="accordion__header">Skrive en melding?</h2>
+			</label>
+			<input type="checkbox" name="trigger-compose" id="trigger-compose" class="accordion__trigger" />
+			<div class="accordion__container">
+				<form class="accordion__content compose">
+					<textarea name="message" class="compose__textarea" placeholder="Hva tenker du på?"></textarea>
+					<div class="split">
+						<!-- <label for="eula" class="split__label split__grow">
+							<input type="checkbox" name="eula" id="eula" class="form__checkbox" />
+							Jeg godtar <a href="#">brukervilkårene</a>
+						</label> -->
+						<div class="split__grow">0 / 250</div>
+						<button class="split__shrink compose__submit">Send</button>
+					</div>
+				</form>
+			</div>
 		</div>
+
 	</main>
 	<section class="chat">
+
 		<div class="chat__history">
 			<p class="chat__grouping">12. Januar 2023</p>
 			<div class="message">
@@ -114,25 +151,10 @@
 			</div>
 			<div class="chat__anchor"></div>
 		</div>
-		<div class="accordion accordion--bottom">
-			<label for="compose-trigger" class="accordion__toggle">
-				<h2 class="accordion__heading">Skrive en melding?</h2>
-			</label>
-			<input type="checkbox" name="compose-trigger" id="compose-trigger" class="accordion__trigger" />
-			<div class="accordion__content">
-				<form class="form">
-					<textarea name="message" class="form__input form__textarea" placeholder="Hva tenker du på?"></textarea>
-					<div class="form__split">
-						<label for="eula" class="form__label">
-							<input type="checkbox" name="eula" id="eula" class="form__checkbox" />
-							Jeg godtar <a href="#">brukervilkårene</a>
-						</label>
-						<button class="form__submit">Send</button>
-					</div>
-				</form>
-			</div>
-		</div>
 	</section>
-	<a href="#top" class="jump">Til toppen</a>
+	<a href="#top" class="jump">
+		<div class="icon icon--rotate-ccw">&#10140;</div>
+		<span class="invisible">Gå til toppen</span>
+	</a>
 </body>
 </html>
