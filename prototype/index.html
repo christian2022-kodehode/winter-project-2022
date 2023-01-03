@@ -7,12 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="styles/screen.css">
 </head>
 <body id="top">
-<!-- <div style="width: 50%; position: fixed; height: 2em; border-top: 1px solid red; left: 0; top: 50%; z-index: 99"></div>
-<div style="width: 50%; position: fixed; height: 2em; border-bottom: 1px solid red; right: 0; top: 50%; z-index: 99"></div>
-<div style="width: 41%; position: fixed; height: 2em; background: rgba(0,0,255,0.5); left: 6%; top: 50%; z-index: 99"></div>
-<div style="width: 41%; position: fixed; height: 2em; background: rgba(0,0,255,0.5); right: 6%; top: 50%; z-index: 99"></div> -->
-<!-- <div style="width: 2em; position: fixed; height: 11.5em; background: rgba(0,0,255,0.5); left: 6%; bottom: 0; z-index: 99"></div>
-<div style="width: 2em; position: fixed; height: 5em; background: rgba(0,0,255,0.5); left: 6%; top: 0; z-index: 99"></div> -->
+
 	<main class="countdown">
 
 		<div class="accordion accordion--primary accordion--top accordion--signin">
@@ -53,6 +48,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="accordion accordion--primary accordion--fixed accordion--bottom accordion--compose">
 			<label for="trigger-compose" class="accordion__toggle">
 				<h2 class="accordion__header">Skrive en melding?</h2>
@@ -62,10 +58,6 @@
 				<form class="accordion__content compose">
 					<textarea name="message" class="compose__textarea" placeholder="Hva tenker du på?"></textarea>
 					<div class="split">
-						<!-- <label for="eula" class="split__label split__grow">
-							<input type="checkbox" name="eula" id="eula" class="form__checkbox" />
-							Jeg godtar <a href="#">brukervilkårene</a>
-						</label> -->
 						<div class="split__grow">0 / 250</div>
 						<button class="split__shrink compose__submit">Send</button>
 					</div>
@@ -151,10 +143,13 @@
 			</div>
 			<div class="chat__anchor"></div>
 		</div>
+
 	</section>
+
 	<a href="#top" class="jump">
 		<div class="icon icon--rotate-ccw">&#10140;</div>
 		<span class="invisible">Gå til toppen</span>
 	</a>
+
 </body>
 </html>

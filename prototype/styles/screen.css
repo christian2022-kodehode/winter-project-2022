@@ -70,11 +70,6 @@ a {
 	transition: var(--transition-color);
 }
 
-/* input[type=checkbox] {
-	background-color: transparent;
-	border: 0.2em solid var(--highlight-text);
-} */
-
 input[type=text],
 textarea {
 	background-color: hsl(200deg 50% 90%);
@@ -167,19 +162,7 @@ button {
 		position: absolute;
 		top: 1rem;
 	}
-/* 
 
-outer padding 2em
-split 3em
-
-
-outer padding 2em
-textarea 6em
-margin 0.5em
-split 3em
-total 11.5em
-
- */
 	.accordion__trigger:checked ~ .accordion__container {
 		max-height: 100vh;
 		transition-timing-function: ease-out;
@@ -195,21 +178,18 @@ total 11.5em
 
 	.accordion__header {
 		border-radius: 1rem 1rem 0 0;
-		/* border-color: hsl(0deg 0% 100% / 50%);
-		border-style: solid solid none solid;
-		border-width: 0.25rem; */
+		display: block;
 		line-height: 2;
 		margin: 0;
 		transition: var(--transition-color);
-		display: block;
 	}
 
 	.accordion__container {
-		max-height: 0vh;
 		overflow: hidden;
 		transition-duration: 300ms;
 		transition-property: max-height;
 		transition-timing-function: ease-in;
+		max-height: 0vh;
 	}
 
 	.accordion__content {
@@ -219,9 +199,6 @@ total 11.5em
 	.accordion--primary .accordion__container {
 		background-color: var(--primary-transparent);
 		color: var(--primary-text);
-		/* border-color: hsl(0deg 0% 100% / 50%);
-		border-style: none solid none solid;
-		border-width: 0.25rem; */
 	}
 
 	.accordion--primary a:link {
@@ -255,7 +232,6 @@ total 11.5em
 
 	.accordion__header--invert {
 		border-radius: 0 0 1rem 1rem;
-		/* border-style: none solid solid solid; */
 	}
 
 	.accordion--bottom {
@@ -264,39 +240,6 @@ total 11.5em
 		right: 6%;
 		top: auto;
 	}
-	/* .form__fields {
-		border-style: none;
-		margin: 0.5em 0 0 0;
-		padding: 0;
-	} */
-
-	/* .form__input {
-		background-color: hsl(200deg 0% 100% / 50%);
-		border: 3px solid white;
-		font-family: inherit;
-		font-size: inherit;
-		padding: 0.5em 1em;
-		transition: var(--transition-color);
-	}
-		.form__input:hover,
-		.form__input:focus {
-			background-color: hsl(200deg 0% 100% / 90%);
-		} */
-
-	/* .form__textfield {
-		border-radius: 1em;
-		flex-basis: 8em;
-		flex-grow: 1;
-		min-width: 8em;
-	}
-
-	.form__textarea {
-		border-radius: 1em 1em 0 1em;
-		display: block;
-		min-height: 6em;
-		resize: vertical;
-		width: 100%;
-	} */
 
 	.split {
 		align-content: stretch;
@@ -318,7 +261,6 @@ total 11.5em
 			flex-shrink: 1;
 		}
 
-
 .compose__textarea {
 	border-radius: 1em 1em 0 1em;
 	margin-bottom: 0.5em;
@@ -328,10 +270,6 @@ total 11.5em
 .compose__submit {
 	border-radius: 1em 0 1em 1em;
 }
-		/* .form__submit:hover,
-		.form__submit:focus {
-			background-color: var(--highlight-focus);
-		} */
 
 .jump {
 	display: none;
@@ -352,18 +290,15 @@ total 11.5em
 .countdown {
 	display: flex;
 	flex-direction: column;
-	/* min-height: 100vh; */
-	/* padding-bottom: 4em; */
 	gap: 1em;
 }
 	.countdown__current {
 		display: flex;
 		flex-direction: column;
 		flex-grow: 1;
+		gap: 1em;
 		justify-content: center;
 		text-align: center;
-		/* position: sticky; */
-		gap: 1em;
 	}
 
 	.countdown__counter {
@@ -400,7 +335,6 @@ total 11.5em
 
 	.countdown__suggestions {
 		flex-shrink: 1;
-		/* padding: 2em 0; */
 		text-align: end;
 		text-align: start;
 	}
@@ -412,7 +346,6 @@ total 11.5em
 	flex-grow: 1;
 	flex-shrink: 1;
 	justify-content: flex-end;
-	/* overflow-y: hidden; */
 }
 	.chat__history {
 		padding-bottom: 10em;
@@ -428,7 +361,6 @@ total 11.5em
 		height: 1px;
 		overflow-anchor: auto;
 	}
-
 
 .message {
 	background-color: hsl(200deg 0% 100% / 90%);
@@ -467,11 +399,6 @@ total 11.5em
 @media (min-width: 44em) {
 
 	body {
-		/* align-content: stretch;
-		align-items: stretch;
-		display: flex;
-		flex-direction: row;
-		gap: 6vw; */
 		padding: 0 6% 0 53%;
 		position: relative;
 	}
@@ -479,24 +406,6 @@ total 11.5em
 	.accordion--fixed.accordion--bottom {
 		position: static;
 	}
-
-	/* .accordion--fixed {
-		position: fixed;
-		z-index: 2;
-	}
-		.accordion--fixed.accordion--top {
-			bottom: auto;
-			left: 6%;
-			right: 53%;
-			top: 0;
-		}
-
-		.accordion--fixed.accordion--bottom {
-			bottom: 0;
-			left: 6%;
-			right: 53%;
-			top: auto;
-		} */
 
 	.countdown {
 		bottom: 0;
@@ -507,37 +416,12 @@ total 11.5em
 		right: 53%;
 		top: 0;
 	}
-		/* .countdown__current {
-			margin-bottom: 4em;
-		} */
-
-
-	/* .accordion__content {
-		max-height: 0vh;
-	} */
-
-	/* .countdown,
-	.chat {
-		flex-basis: 50%;
-	} */
-
-	/* .chat {
-		max-height: 100vh;
-		align-self: flex-end;
-	} */
 
 	.countdown__counter {
 		font-size: 3.5vw;
 	}
 
 	.jump {
-		/* line-height: 2;
-		padding: 0 2em; */
-		/* color: var(--secondary-text);
-		background-color: var(--secondary); */
-		/* border-radius: 0 0 1em 1em; */
-		/* background-color: var(--primary-transparent); */
-		/* text-decoration: none; */
 		align-items: center;
 		border-radius: 50%;
 		border: 0.25vw solid var(--primary);
