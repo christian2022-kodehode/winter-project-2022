@@ -26,22 +26,78 @@
 }
 
 html {
+	--background-transparent: hsl(200deg 0% 100% / 50%);
+	--background: hsl(200deg 10% 70%);
+	--foreground-contrast: hsl(200deg 10% 90%);
+	--foreground: hsl(200deg 10% 10%);
+	--highlight-contrast: hsl(200deg 0% 100%);
 	--highlight-focus: hsl(15deg 75% 50%);
-	--highlight-text: white;
+	--highlight-transparent: hsl(0deg 50% 50% / 90%);
 	--highlight: hsl(0deg 50% 50%);
+	--inputfield-background-focus: hsl(200deg 50% 100%);
+	--inputfield-background: hsl(200deg 50% 90%);
+	--inputfield-border: hsl(200deg 50% 100%);
+	--inputfield-text: hsl(200deg 10% 10%);
+	--link-contrast-focus: hsl(200deg 100% 75%);
+	--link-contrast-visited: hsl(200deg 100% 66%);
+	--link-contrast: hsl(200deg 100% 66%);
+	--link-focus: hsl(200deg 100% 10%);
+	--link-visited: hsl(200deg 33% 10%);
+	--link: hsl(200deg 66% 10%);
+	--message-background: hsl(200deg 0% 100% / 90%);
+	--message-border: hsl(200deg 0% 100%);
+	--message-text: hsl(200deg 10% 10%);
+	--primary-contrast: hsl(200deg 0% 100%);
 	--primary-focus: hsl(200deg 100% 33%);
-	--primary-link-focus: hsl(200deg 100% 75%);
-	--primary-link: hsl(200deg 100% 66%);
-	--primary-text: white;
 	--primary-transparent: hsl(200deg 100% 25% / 90%);
 	--primary: hsl(200deg 100% 25%);
+	--secondary-contrast: hsl(200deg 0% 100%);
 	--secondary-focus: hsl(200deg 100% 50%);
-	--secondary-text: white;
+	--secondary-transparent: hsl(200deg 33% 33% / 90%);
 	--secondary: hsl(200deg 33% 33%);
 	--transition-color:
 		color 300ms ease-in-out,
 		background-color 300ms ease-in-out,
 		border-color 300ms ease-in-out;
+}
+
+@media (prefers-color-scheme: dark) {
+	html {
+		--background-transparent: hsl(200deg 50% 20% / 50%);
+		--background: hsl(200deg 50% 10%);
+		--foreground-contrast: hsl(200deg 10% 10%);
+		--foreground: hsl(200deg 25% 80%);
+		--highlight-contrast: hsl(15deg 100% 80%);
+		--highlight-focus: hsl(15deg 100% 50%);
+		--highlight-transparent: hsl(0deg 50% 40% / 90%);
+		--highlight: hsl(0deg 100% 40%);
+		--inputfield-background-focus: hsl(200deg 50% 50% / 90%);
+		--inputfield-background: hsl(200deg 50% 50% / 80%);
+		--inputfield-border: hsl(200deg 50% 50%);
+		--inputfield-text: hsl(200deg 10% 90%);
+		--link-contrast-focus: hsl(200deg 100% 30%);
+		--link-contrast-visited: hsl(200deg 100% 30%);
+		--link-contrast: hsl(200deg 100% 30%);
+		--link-focus: hsl(200deg 100% 80%);
+		--link-visited: hsl(200deg 25% 50%);
+		--link: hsl(200deg 75% 50%);
+		--message-background: hsl(200deg 10% 30% / 90%);
+		--message-border: hsl(200deg 10% 30%);
+		--message-text: hsl(200deg 10% 75%);
+		--primary-contrast: hsl(200deg 10% 75%);
+		--primary-focus: hsl(200deg 100% 40%);
+		--primary-transparent: hsl(200deg 100% 30% / 80%);
+		--primary: hsl(200deg 100% 30%);
+		--secondary-contrast: hsl(200deg 25% 75%);
+		--secondary-focus: hsl(200deg 100% 40%);
+		--secondary-transparent: hsl(200deg 25% 30% / 90%);
+		--secondary: hsl(200deg 25% 30%);
+	}
+}
+
+::placeholder {
+	color: var(--inputfield-text);
+	opacity: 0.5;
 }
 
 
@@ -53,8 +109,9 @@ html {
 
 body {
 	background-attachment: fixed;
-	background-color: hsl(150deg 10% 70%);
-	background-image: url("../graphics/Clarence.svg");
+	background-color: var(--background);
+	/* background-image: url("../graphics/Clarence.svg"); */
+	color: var(--foreground);
 	font-family: Heebo, sans-serif;
 	line-height: 1.3;
 	margin: 0;
@@ -72,8 +129,10 @@ a {
 
 input[type=text],
 textarea {
-	background-color: hsl(200deg 50% 90%);
-	border: 0.2em solid white;
+	background-color: var(--inputfield-background);
+	border-radius: 0.5em;
+	border: 0.2em solid var(--inputfield-border);
+	color: var(--inputfield-text);
 	font-family: inherit;
 	font-size: inherit;
 	padding: 0.5em 1em;
@@ -84,7 +143,7 @@ textarea {
 	input[type=text]:focus,
 	textarea:hover,
 	textarea:focus {
-		background-color: hsl(200deg 50% 100%);
+		background-color: var(--inputfield-background-focus);
 	}
 
 textarea {
@@ -99,14 +158,13 @@ button {
 	background-color: var(--highlight);
 	border-radius: 0.5em;
 	border-style: none;
-	color: var(--highlight-text);
+	color: var(--highlight-contrast);
 	cursor: pointer;
 	font-size: inherit;
 	font-weight: 600;
 	letter-spacing: -3%;
 	line-height: 3;
 	padding: 0 2em;
-	text-transform: uppercase;
 	transition: var(--transition-color);
 }
 	button:hover,
@@ -132,7 +190,7 @@ button {
 }
 
 .container {
-	background-color: hsl(200deg 0% 100% / 50%);
+	background-color: var(--background-transparent);
 	border-radius: 1em;
 	padding: 1em;
 	display: flex;
@@ -143,7 +201,7 @@ button {
 .tag {
 	background-color: var(--secondary);
 	border-radius: 0.25em;
-	color: var(--primary-text);
+	color: var(--primary-contrast);
 	display: inline-block;
 	line-height: 1;
 	margin-bottom: 0.25em;
@@ -207,12 +265,16 @@ button {
 
 	.accordion__header {
 		border-radius: 1rem 1rem 0 0;
-		color: var(--primary);
+		color: var(--link);
 		display: block;
 		line-height: 2;
 		margin: 0;
 		transition: var(--transition-color);
 	}
+		.accordion__header:hover,
+		.accordion__header:focus {
+			color: var(--link-focus);
+		}
 
 	.accordion__container {
 		overflow: hidden;
@@ -228,7 +290,7 @@ button {
 
 	.accordion--primary .accordion__container {
 		background-color: var(--primary-transparent);
-		color: var(--primary-text);
+		color: var(--primary-contrast);
 	}
 
 	.accordion--primary a:link {
@@ -245,8 +307,8 @@ button {
 	}
 
 	.accordion--primary .accordion__header {
-		background-color: var(--primary-transparent);
-		color: var(--primary-text);
+		background-color: var(--primary);
+		color: var(--primary-contrast);
 		padding: 0 2rem;
 	}
 
@@ -334,7 +396,7 @@ button {
 	.countdown__counter {
 		background-color: var(--highlight);
 		border-radius: 0.5rem;
-		color: var(--highlight-text);
+		color: var(--highlight-contrast);
 		font-size: 7vw;
 		line-height: 1;
 		padding: 1rem 0;
@@ -344,7 +406,7 @@ button {
 	.countdown__label {
 		background-color: var(--secondary);
 		border-radius: 0.5em;
-		color: var(--secondary-text);
+		color: var(--secondary-contrast);
 		line-height: 1;
 		padding: 1em;
 	}
@@ -393,9 +455,10 @@ button {
 	}
 
 .message {
-	background-color: hsl(200deg 0% 100% / 90%);
+	background-color: var(--message-background);
 	border-radius: 1em 1em 0 1em;
-	border: 3px solid white;
+	border: 3px solid var(--message-border);
+	color: var(--message-text);
 	margin-bottom: 1em;
 	overflow-anchor: none;
 	padding: 1em 2em;
@@ -473,7 +536,7 @@ button {
 	}
 		.jump:hover,
 		.jump:focus {
-			background-color: white;
+			background-color: var(--highlight-contrast);
 		}
 }
 
