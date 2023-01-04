@@ -121,6 +121,16 @@ button {
  *
  * * * */
 
+.icon {
+	height: 1em;
+	vertical-align: middle;
+	width: 1em;
+}
+
+.icon--rotate-ccw {
+	transform: rotate(-90deg);
+}
+
 .container {
 	background-color: hsl(200deg 0% 100% / 50%);
 	border-radius: 1em;
@@ -175,6 +185,25 @@ button {
 	.accordion--signin .accordion__trigger:checked ~ .accordion__container {
 		max-height: 5em;
 	}
+
+	.accordion--channels .accordion__trigger:checked ~ .accordion__container {
+		max-height: 3em;
+	}
+
+
+	.accordion__indicator {
+		transition-duration: 300ms;
+		transition-property: transform;
+		transition-timing-function: ease-in-out;
+	}
+
+	.accordion__trigger:checked ~ .accordion__toggle .accordion__indicator {
+		transform: rotate(-180deg);
+	}
+
+	/* .accordion__trigger:checked ~ .accordion__toggle .accordion__indicator--invert {
+		transform: rotate(0deg);
+	} */
 
 	.accordion__header {
 		border-radius: 1rem 1rem 0 0;
@@ -445,8 +474,15 @@ button {
 		.jump:focus {
 			background-color: white;
 		}
+}
 
-		.icon--rotate-ccw {
-			transform: rotate(-90deg);
-		}
+@media (max-width: 25em) {
+
+	.accordion--signin .accordion__trigger:checked ~ .accordion__container {
+		max-height: 9em;
+	}
+
+	.accordion--signin .split__shrink {
+		flex-grow: 1;
+ 	}
 }
