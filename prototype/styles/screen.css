@@ -55,6 +55,7 @@ html {
 	--secondary-focus: hsl(200deg 100% 50%);
 	--secondary-transparent: hsl(200deg 33% 33% / 90%);
 	--secondary: hsl(200deg 33% 33%);
+	--separator: hsl(200deg 10% 10% / 20%);
 	--transition-color:
 		color 300ms ease-in-out,
 		background-color 300ms ease-in-out,
@@ -92,6 +93,7 @@ html {
 		--secondary-focus: hsl(200deg 100% 40%);
 		--secondary-transparent: hsl(200deg 25% 30% / 90%);
 		--secondary: hsl(200deg 25% 30%);
+		--separator: hsl(200deg 10% 90% / 20%);
 	}
 }
 
@@ -241,9 +243,15 @@ button {
 	}
 
 	.accordion__header {
+		align-items: center;
+		border-bottom-style: solid;
+		border-color: var(--separator);
 		border-radius: 1rem 1rem 0 0;
+		border-width: 1px;
 		color: var(--link);
-		display: block;
+		display: flex;
+		gap: 1em;
+		justify-content: space-between;
 		line-height: 2;
 		margin: 0;
 		transition: var(--transition-color);
@@ -306,6 +314,7 @@ button {
 
 	.accordion--primary .accordion__header {
 		background-color: var(--primary);
+		border-style: none;
 		color: var(--primary-contrast);
 		padding: 0 2rem;
 	}
@@ -319,6 +328,14 @@ button {
 		color: var(--primary-contrast);
 	}
 
+	.accordion--compose {
+		display: none;
+	}
+
+	.status-authenticated .accordion--compose {
+		display: initial;
+	}
+
 	.accordion--compose .accordion__trigger:checked ~ .accordion__container {
 		max-height: 11.5em;
 	}
@@ -328,7 +345,7 @@ button {
 	}
 
 	.accordion--channels .accordion__trigger:checked ~ .accordion__container {
-		max-height: 3em;
+		max-height: 5em;
 	}
 
 .split {
