@@ -121,6 +121,7 @@ body {
 
 h2 {
 	font-weight: 300;
+	letter-spacing: -0.05em;
 }
 
 a {
@@ -131,13 +132,14 @@ input[type=text],
 textarea {
 	background-color: var(--inputfield-background);
 	border-radius: 0.5em;
+	border-radius: 0.5em;
 	border: 0.2em solid var(--inputfield-border);
 	color: var(--inputfield-text);
 	font-family: inherit;
 	font-size: inherit;
+	min-width: 3em;
 	padding: 0.5em 1em;
 	transition: var(--transition-color);
-	border-radius: 0.5em;
 }
 	input[type=text]:hover,
 	input[type=text]:focus,
@@ -162,10 +164,11 @@ button {
 	cursor: pointer;
 	font-size: inherit;
 	font-weight: 600;
-	letter-spacing: -3%;
+	letter-spacing: -0.05em;
 	line-height: 3;
 	padding: 0 2em;
 	transition: var(--transition-color);
+	white-space: nowrap;
 }
 	button:hover,
 	button:focus {
@@ -233,35 +236,8 @@ button {
 
 	.accordion__trigger:checked ~ .accordion__container {
 		max-height: 100vh;
-		transition-timing-function: ease-out;
+		transition-timing-function: ease-in;
 	}
-
-	.accordion--compose .accordion__trigger:checked ~ .accordion__container {
-		max-height: 11.5em;
-	}
-
-	.accordion--signin .accordion__trigger:checked ~ .accordion__container {
-		max-height: 5em;
-	}
-
-	.accordion--channels .accordion__trigger:checked ~ .accordion__container {
-		max-height: 3em;
-	}
-
-
-	.accordion__indicator {
-		transition-duration: 300ms;
-		transition-property: transform;
-		transition-timing-function: ease-in-out;
-	}
-
-	.accordion__trigger:checked ~ .accordion__toggle .accordion__indicator {
-		transform: rotate(-180deg);
-	}
-
-	/* .accordion__trigger:checked ~ .accordion__toggle .accordion__indicator--invert {
-		transform: rotate(0deg);
-	} */
 
 	.accordion__header {
 		border-radius: 1rem 1rem 0 0;
@@ -276,6 +252,16 @@ button {
 			color: var(--link-focus);
 		}
 
+	.accordion__indicator {
+		transition-duration: 300ms;
+		transition-property: transform;
+		transition-timing-function: ease-in-out;
+	}
+
+	.accordion__trigger:checked ~ .accordion__toggle .accordion__indicator {
+		transform: rotate(-180deg);
+	}
+
 	.accordion__container {
 		overflow: hidden;
 		transition-duration: 300ms;
@@ -288,9 +274,16 @@ button {
 		padding: 1em 2em;
 	}
 
-	.accordion--primary .accordion__container {
-		background-color: var(--primary-transparent);
-		color: var(--primary-contrast);
+	.accordion--fixed {
+		position: fixed;
+		z-index: 2;
+	}
+
+	.accordion--bottom {
+		bottom: 0;
+		left: 6%;
+		right: 6%;
+		top: auto;
 	}
 
 	.accordion--primary a:link {
@@ -306,62 +299,54 @@ button {
 		color: var(--primary-link-focus);
 	}
 
+	.accordion__header--invert {
+		border-radius: 0 0 1rem 1rem;
+	}
+
 	.accordion--primary .accordion__header {
 		background-color: var(--primary);
 		color: var(--primary-contrast);
 		padding: 0 2rem;
 	}
-
-	.accordion--primary .accordion__header:hover,
-	.accordion--primary .accordion__header:focus {
-		background-color: var(--primary-focus);
-	}
-
-	.accordion--fixed {
-		position: fixed;
-		z-index: 2;
-	}
-
-	.accordion__header--invert {
-		border-radius: 0 0 1rem 1rem;
-	}
-
-	.accordion--bottom {
-		bottom: 0;
-		left: 6%;
-		right: 6%;
-		top: auto;
-	}
-
-	.split {
-		align-content: stretch;
-		align-items: center;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 1em;
-		justify-content: space-between;
-		line-height: 3;
-	}
-		.split__grow {
-			flex-basis: 8em;
-			flex-grow: 1;
-			min-width: 8em;
+		.accordion--primary .accordion__header:hover,
+		.accordion--primary .accordion__header:focus {
+			background-color: var(--primary-focus);
 		}
 
-		.split__shrink {
-			flex-shrink: 1;
-		}
+	.accordion--primary .accordion__container {
+		background-color: var(--primary-transparent);
+		color: var(--primary-contrast);
+	}
 
-.compose__textarea {
-	border-radius: 1em 1em 0 1em;
-	margin-bottom: 0.5em;
-	resize: none;
-}
+	.accordion--compose .accordion__trigger:checked ~ .accordion__container {
+		max-height: 11.5em;
+	}
 
-.compose__submit {
-	border-radius: 1em 0 1em 1em;
+	.accordion--signin .accordion__trigger:checked ~ .accordion__container {
+		max-height: 5em;
+	}
+
+	.accordion--channels .accordion__trigger:checked ~ .accordion__container {
+		max-height: 3em;
+	}
+
+.split {
+	align-content: stretch;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 1em;
+	justify-content: space-between;
+	line-height: 3;
 }
+	.split__grow {
+		flex-grow: 1;
+	}
+
+	.split__shrink {
+		flex-shrink: 1;
+	}
 
 .jump {
 	display: none;
@@ -378,6 +363,16 @@ button {
  *   4. Content components
  *
  * * * */
+
+.compose__textarea {
+	border-radius: 1em 1em 0 1em;
+	margin-bottom: 0.5em;
+	resize: none;
+}
+
+.compose__submit {
+	border-radius: 1em 0 1em 1em;
+}
 
 .countdown {
 	display: flex;
@@ -398,6 +393,7 @@ button {
 		border-radius: 0.5rem;
 		color: var(--highlight-contrast);
 		font-size: 7vw;
+		letter-spacing: -0.05em;
 		line-height: 1;
 		padding: 1rem 0;
 		white-space: nowrap;
@@ -413,6 +409,7 @@ button {
 
 	.countdown__tag {
 		font-size: 300%;
+		letter-spacing: -0.05em;
 		margin: 0;
 	}
 		.countdown__tag:before {
@@ -425,7 +422,7 @@ button {
 		opacity: 0.5;
 	}
 
-	.countdown__suggestions {
+	.countdown__channels {
 		flex-shrink: 1;
 		text-align: end;
 		text-align: start;
@@ -496,6 +493,10 @@ button {
 		position: relative;
 	}
 
+	.split {
+		flex-wrap: nowrap;
+	}
+
 	.accordion--fixed.accordion--bottom {
 		position: static;
 	}
@@ -540,7 +541,7 @@ button {
 		}
 }
 
-@media (max-width: 25em) {
+@media (max-width: 26em) {
 
 	.accordion--signin .accordion__trigger:checked ~ .accordion__container {
 		max-height: 9em;
@@ -549,4 +550,18 @@ button {
 	.accordion--signin .split__shrink {
 		flex-grow: 1;
  	}
+}
+
+@media (max-width: 17em) {
+	.accordion--compose .split {
+		line-height: 1;
+	}
+
+	.accordion--compose .split__shrink {
+		flex-grow: 1;
+	}
+
+	.accordion--compose .accordion__trigger:checked ~ .accordion__container {
+		max-height: 15.5em;
+	}
 }
