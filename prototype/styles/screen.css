@@ -110,7 +110,7 @@ html {
 body {
 	background-attachment: fixed;
 	background-color: var(--background);
-	/* background-image: url("../graphics/Clarence.svg"); */
+	background-image: url("../graphics/Clarence.svg");
 	color: var(--foreground);
 	font-family: Heebo, sans-serif;
 	line-height: 1.3;
