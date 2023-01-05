@@ -30,7 +30,7 @@ html {
 	--background: hsl(200deg 10% 70%);
 	--foreground-contrast: hsl(200deg 10% 90%);
 	--foreground: hsl(200deg 10% 10%);
-	--highlight-contrast: hsl(200deg 0% 100%);
+	--highlight-contrast: hsl(15deg 100% 90%);
 	--highlight-focus: hsl(15deg 75% 50%);
 	--highlight-transparent: hsl(0deg 50% 50% / 90%);
 	--highlight: hsl(0deg 50% 50%);
@@ -95,11 +95,6 @@ html {
 	}
 }
 
-::placeholder {
-	color: var(--inputfield-text);
-	opacity: 0.5;
-}
-
 
 
 /*
@@ -119,9 +114,14 @@ body {
 	padding: 0 6%;
 }
 
+h1 {
+	letter-spacing: -0.03em;
+}
+
 h2 {
+	font-size: 125%;
 	font-weight: 300;
-	letter-spacing: -0.05em;
+	letter-spacing: -0.03em;
 }
 
 a {
@@ -156,6 +156,11 @@ textarea {
 	width: 100%;
 }
 
+::placeholder {
+	color: var(--inputfield-text);
+	opacity: 0.5;
+}
+
 button {
 	background-color: var(--highlight);
 	border-radius: 0.5em;
@@ -186,10 +191,6 @@ button {
 	height: 1em;
 	vertical-align: middle;
 	width: 1em;
-}
-
-.icon--rotate-ccw {
-	transform: rotate(-90deg);
 }
 
 .container {
@@ -393,7 +394,6 @@ button {
 		border-radius: 0.5rem;
 		color: var(--highlight-contrast);
 		font-size: 7vw;
-		letter-spacing: -0.05em;
 		line-height: 1;
 		padding: 1rem 0;
 		white-space: nowrap;
@@ -553,6 +553,7 @@ button {
 }
 
 @media (max-width: 17em) {
+
 	.accordion--compose .split {
 		line-height: 1;
 	}
