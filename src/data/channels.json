@@ -1,0 +1,38 @@
+[
+{
+"key": 1,
+"name": "jul2023",
+"description": "Julaften 2023 - God Jul!",
+"language": "nb",
+"style": "xmas",
+"time": "2023-12-24 00:00:00",
+"zone": "cet"
+},
+{
+"key": 2,
+"name": "dommedag",
+"description": "Astroiden Apophis kommer!",
+"language": "nb",
+"style": "doom",
+"time": "2036-00-00 00:00:00",
+"zone": "cet"
+},
+{
+"key": 3,
+"name": "valg2025",
+"description": "Stortingsvalg i Norge",
+"language": "nb",
+"style": "default",
+"time": "2025-09-01 00:00:00",
+"zone": "cet"
+},
+{
+"key": 4,
+"name": "2024",
+"description": "Godt nytt år!",
+"language": "nb",
+"style": "party",
+"time": "2024-00-00 00:00:00",
+"zone": "cet"
+}
+]
