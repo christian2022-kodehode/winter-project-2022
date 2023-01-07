@@ -1,19 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
 import Countdown from "./components/Countdown/Countdown"
-import Chat from "./components/Chat/Chat"
+import MessageHistory from "./components/MessageHistory/MessageHistory"
 import Jump from './components/Jump/Jump';
 import SymbolLibrary from './components/SymbolLibrary/SymbolLibrary';
 
-function App() {
+export default function App() {
   return (
     <>
       <Countdown />
-      <Chat />
+      <MessageHistory />
       <Jump />
       <SymbolLibrary />
     </>
   );
 }
-
-export default App;
