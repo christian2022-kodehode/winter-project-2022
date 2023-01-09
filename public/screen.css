@@ -225,6 +225,11 @@ button {
 		background-color: var(--secondary-focus);
 	}
 
+	/* temporary workaround hack for React ignoring whitespace for no good reason */
+	.tag + .tag {
+		margin-left: 0.5em;
+	}
+
 /* .accordion {
 } */
 	.accordion__toggle {
