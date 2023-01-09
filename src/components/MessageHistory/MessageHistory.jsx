@@ -6,7 +6,7 @@ const dates = sample
 
 export default function MessageHistory () {
 
-	const history = dates.map((date) => {
+	const children = dates.map((date) => {
 
 		return <MessagesByDate key={date.key} props={date} />
 	})
@@ -15,7 +15,7 @@ export default function MessageHistory () {
 
 		<section className="chat">
 			<h2>Meldinger:</h2>
-			{history}
+			{children}
 		</section>
 	)
 }
