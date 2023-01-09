@@ -287,7 +287,7 @@ button {
 	}
 
 	.accordion__content {
-		padding: 1em 2em;
+		padding-top: 1em;
 	}
 
 	.accordion--fixed {
@@ -333,6 +333,10 @@ button {
 	.accordion--primary .accordion__container {
 		background-color: var(--primary-transparent);
 		color: var(--primary-contrast);
+	}
+
+	.accordion--primary .accordion__content {
+		padding: 1em 2em;
 	}
 
 	.accordion--compose {
