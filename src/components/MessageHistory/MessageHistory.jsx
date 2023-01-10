@@ -8,7 +8,7 @@ export default function MessageHistory () {
 
 	const children = dates.map((date) => {
 
-		return <MessagesByDate key={date.key} props={date} />
+		return <MessagesByDate key={date.key} date={date} />
 	})
 
 	return (

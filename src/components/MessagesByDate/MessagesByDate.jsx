@@ -1,8 +1,8 @@
 import Message from "../Message/Message"
 
 export default function MessagesByDate (props) {
-console.log("MessagesByDate props", props.props)
-	const children = props.props.messages.map((message) => {
+
+	const children = props.date.messages.map((message) => {
 
 		return <Message key={message.key} message={message} />
 	})
@@ -10,7 +10,7 @@ console.log("MessagesByDate props", props.props)
 	return (
 	
 		<div className="chat__grouping">
-			<h3 className="chat__date">{props.props.date}</h3>
+			<h3 className="chat__date">{props.date.date}</h3>
 			{children}
 		</div>
 	)
