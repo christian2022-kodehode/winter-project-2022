@@ -6,7 +6,7 @@
 "language": "nb",
 "style": "xmas",
 "time": "2023-12-24 00:00:00",
-"zone": "cet"
+"zone": "local"
 },
 {
 "key": 2,
@@ -15,7 +15,7 @@
 "language": "nb",
 "style": "doom",
 "time": "2036-00-00 00:00:00",
-"zone": "cet"
+"zone": "gmt"
 },
 {
 "key": 3,
@@ -33,6 +33,6 @@
 "language": "nb",
 "style": "party",
 "time": "2024-00-00 00:00:00",
-"zone": "cet"
+"zone": "local"
 }
 ]
