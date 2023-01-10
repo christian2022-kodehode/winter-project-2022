@@ -1,13 +1,24 @@
-export default function Signin () {
-	return (
+import React from "react"
 
+export default function Signin () {
+
+	const [username, setUsername] = React.useState("")
+
+	function updateUsername(event) {
+		setUsername(event.target.value)
+	}
+
+	return (
 
 		<div className="accordion accordion--primary accordion--top accordion--signin">
 			<input type="checkbox" name="trigger-signin" id="trigger-signin" className="accordion__trigger" />
 			<div className="accordion__container">
 				<form className="accordion__content">
 					<div className="split">
-						<input type="text" name="user" value="Anonym Brukersen" placeholder="Hvem er du?" className="split__grow" />
+						<div className="split__grow">
+							<label htmlFor="username" className="invisible">Brukernavn:</label>
+							<input onChange={updateUsername} type="text" name="username" id="username" value="Anonym Brukersen" placeholder="Hvem er du?" />
+						</div>
 						<button className="split__shrink">Logg inn</button>
 					</div>
 				</form>

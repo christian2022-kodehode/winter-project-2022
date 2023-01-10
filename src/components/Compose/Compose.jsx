@@ -1,4 +1,13 @@
+import React from "react"
+
 export default function Compose () {
+
+	const [message, setMessage] = React.useState("")
+
+	function updateMessage(event) {
+		setMessage(event.target.value)
+	}
+
 	return (
 
 		<div className="accordion accordion--primary accordion--fixed accordion--bottom accordion--compose">
@@ -14,7 +23,7 @@ export default function Compose () {
 			</label>
 			<div className="accordion__container">
 				<form className="accordion__content compose">
-					<textarea name="message" className="compose__textarea" placeholder="Hva tenker du på?"></textarea>
+					<textarea onChange={updateMessage} name="message" className="compose__textarea" placeholder="Hva tenker du på?"></textarea>
 					<div className="split">
 						<div className="split__grow">0 / 250</div>
 						<button className="split__shrink compose__submit">Send</button>
