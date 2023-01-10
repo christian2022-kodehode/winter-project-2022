@@ -4,6 +4,11 @@ export default function Compose () {
 
 	const [message, setMessage] = React.useState("")
 
+	function submitForm(event) {
+		event.preventDefault()
+		console.log("message:", message)
+	}
+
 	function updateMessage(event) {
 		setMessage(event.target.value)
 	}
@@ -22,8 +27,9 @@ export default function Compose () {
 				</h2>
 			</label>
 			<div className="accordion__container">
-				<form className="accordion__content compose">
-					<textarea onChange={updateMessage} name="message" className="compose__textarea" placeholder="Hva tenker du på?"></textarea>
+				<form onSubmit={submitForm} className="accordion__content compose">
+					<label htmlFor="message" className="invisible">Meldingstekst:</label>
+					<textarea onChange={updateMessage} value={message} name="message" id="message" placeholder="Hva tenker du på?" className="compose__textarea" />
 					<div className="split">
 						<div className="split__grow">0 / 250</div>
 						<button className="split__shrink compose__submit">Send</button>

@@ -4,6 +4,11 @@ export default function Signin () {
 
 	const [username, setUsername] = React.useState("")
 
+	function submitForm(event) {
+		event.preventDefault()
+		console.log("username:", username)
+	}
+
 	function updateUsername(event) {
 		setUsername(event.target.value)
 	}
@@ -13,11 +18,11 @@ export default function Signin () {
 		<div className="accordion accordion--primary accordion--top accordion--signin">
 			<input type="checkbox" name="trigger-signin" id="trigger-signin" className="accordion__trigger" />
 			<div className="accordion__container">
-				<form className="accordion__content">
+				<form onSubmit={submitForm} className="accordion__content">
 					<div className="split">
 						<div className="split__grow">
 							<label htmlFor="username" className="invisible">Brukernavn:</label>
-							<input onChange={updateUsername} type="text" name="username" id="username" value="Anonym Brukersen" placeholder="Hvem er du?" />
+							<input onChange={updateUsername} value={username} type="text" name="username" id="username" placeholder="Hvem er du?" />
 						</div>
 						<button className="split__shrink">Logg inn</button>
 					</div>
