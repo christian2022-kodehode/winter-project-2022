@@ -47,6 +47,7 @@ export default function Compose () {
 				{
 				"key": channelKey,
 				"channel": channel,
+				"zone": zone,
 				"dates": []
 				}
 			)
@@ -61,6 +62,7 @@ export default function Compose () {
 				{
 				"key": dateKey,
 				"date": new Date().toDateString(),
+				"zone": zone,
 				"messages": []
 				}
 			)
