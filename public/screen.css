@@ -530,7 +530,7 @@ button {
 	}
 
 	.accordion--fixed.accordion--bottom {
-		position: static;
+		right: 53%;
 	}
 
 	.countdown {
