@@ -3,6 +3,16 @@ import React from "react"
 export default function Signin () {
 
 	const [username, setUsername] = React.useState ("")
+	const [displayname, setDisplayname] = React.useState ("Logg inn")
+
+	let user = null
+
+	if (localStorage.getItem ("userData")) {
+
+		user = JSON.parse (localStorage.getItem ("userData"))
+		// setDisplayname(user.name)
+	}
+
 
 	// Placeholder data
 	const userData = {
@@ -10,10 +20,11 @@ export default function Signin () {
 		darkmode: false,
 		zone: "cet",
 		lang: "nb",
-		displayMessageLang: [
+		displayMessageLang:
+			[
 			"nb",
 			"en"
-		],
+			],
 		theme: "default"
 	}
 
@@ -21,6 +32,7 @@ export default function Signin () {
 		event.preventDefault ()
 		localStorage.setItem ("userData", JSON.stringify (userData))
 		console.log("userData", JSON.parse (localStorage.getItem ("userData")))
+		setDisplayname(userData.name)
 	}
 
 	function updateUsername (event) {
@@ -43,7 +55,7 @@ export default function Signin () {
 				</form>
 			</div>
 			<label htmlFor="trigger-signin" className="accordion__toggle accordion__header accordion__header--invert">
-				Anonym Brukersen
+				{displayname}
 				<svg className="icon accordion__indicator">
 					<title>Pil som indikerer utvidbart innhold</title>
 					<use href="#symbol-singlechevron-down" />
