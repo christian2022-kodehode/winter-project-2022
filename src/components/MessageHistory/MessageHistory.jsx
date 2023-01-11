@@ -2,7 +2,9 @@ import MessagesByDate from "../MessagesByDate/MessagesByDate"
 import sample from "../../data/jul2023.json"
 
 //todo: combine sample json with localstorage messages
-const dates = sample
+const dates = sample.concat(JSON.parse (localStorage.getItem ("messageData"))[0].dates)
+console.log("dates", dates)
+// console.log("localstorage",JSON.parse (localStorage.getItem ("messageData"))[0].dates)
 
 export default function MessageHistory () {
 
