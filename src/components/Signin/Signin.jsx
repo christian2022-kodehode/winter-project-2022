@@ -2,14 +2,28 @@ import React from "react"
 
 export default function Signin () {
 
-	const [username, setUsername] = React.useState("")
+	const [username, setUsername] = React.useState ("")
 
-	function submitForm(event) {
-		event.preventDefault()
-		console.log("username:", username)
+	// Placeholder data
+	const userData = {
+		name: username,
+		darkmode: false,
+		zone: "cet",
+		lang: "nb",
+		displayMessageLang: [
+			"nb",
+			"en"
+		],
+		theme: "default"
 	}
 
-	function updateUsername(event) {
+	function submitForm (event) {
+		event.preventDefault ()
+		localStorage.setItem ("userData", JSON.stringify (userData))
+		console.log("userData", JSON.parse (localStorage.getItem ("userData")))
+	}
+
+	function updateUsername (event) {
 		setUsername(event.target.value)
 	}
 

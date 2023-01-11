@@ -1,10 +1,8 @@
 import React from "react"
 
+const user = JSON.parse (localStorage.getItem ("userData"))
 // placeholder values
-const username = "Bruker Brukersen"
 const channel = "jul2023"
-const zone = "cet"
-const lang = "nb"
 
 export default function Compose () {
 
@@ -47,7 +45,7 @@ export default function Compose () {
 				{
 				"key": channelKey,
 				"channel": channel,
-				"zone": zone,
+				"zone": user.zone,
 				"dates": []
 				}
 			)
@@ -62,7 +60,7 @@ export default function Compose () {
 				{
 				"key": dateKey,
 				"date": new Date().toDateString(),
-				"zone": zone,
+				"zone": user.zone,
 				"messages": []
 				}
 			)
@@ -81,9 +79,9 @@ export default function Compose () {
 			{
 			"key": messageKey,
 			"time": new Date().toJSON(),
-			"zone": zone,
-			"language": lang,
-			"author": username,
+			"zone": user.zone,
+			"lang": user.lang,
+			"author": user.name,
 			"body": message
 			}
 		)
