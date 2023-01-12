@@ -1,11 +1,18 @@
 import Message from "../Message/Message"
+import React from "react"
 
 export default function MessagesByDate (props) {
 
-	const children = props.date.messages.map((message) => {
+	const [messages, setMessages] = React.useState (props.date.messages)
+
+	const children = messages.map((message) => {
 
 		return <Message key={message.key} message={message} />
 	})
+
+	function submitForm (event) {
+		console.log("hello world")
+	}
 
 	return (
 	

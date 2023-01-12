@@ -1,99 +1,186 @@
 import React from "react"
 
-const user = JSON.parse (localStorage.getItem ("userData"))
-// placeholder values
-const channel = "jul2023"
+// Todo: load channel index from URL fragment or default
+const channelIndex = 0
+
+// Todo: load user or default settings from context
+let user = null
+if (localStorage.getItem ("userData")) {
+
+	// User settings
+	user = JSON.parse (localStorage.getItem ("userData"))
+}
+else {
+
+	// defaults
+	user = {
+		name: "Brukernavn",
+		darkmode: false,
+		zone: "cet",
+		lang: "nb",
+		displayMessageLang:
+			[
+			"nb",
+			"en"
+			],
+		theme: "default"
+	}
+}
 
 export default function Compose () {
 
-	const [message, setMessage] = React.useState ("")
+	// Let React handle field input in realtime
+	const [messageField, setMessageField] = React.useState ("")
 
 	function submitForm (event) {
 
 		event.preventDefault ()
-
-		let data = []
-		let channelKey = null
-		let dateKey = null
-		let messageKey = null
-
+		
+		// Load existing message data from localStorage
+		const data = JSON.parse (localStorage.getItem ("messageData"))
+		// console.log("data", data)
 		// Check if any message data exist in localStorage
-		if (localStorage.getItem ("messageData")) {
+		// if (localStorage.getItem ("messageData")) {
 
-			data = JSON.parse (localStorage.getItem ("messageData"))
+		// 	console.log("merging localStorage data with sample data",JSON.parse (localStorage.getItem ("messageData")), sample)
+		// 	data = JSON.parse (localStorage.getItem ("messageData")).concat (sample)
+		// }
+		// else {
 
-			// Check if object for current channel exists
-			for (let channelIndex = 0; channelIndex < data.length; channelIndex++) {
-				if (data[channelIndex].channel === channel) channelKey = data[channelIndex].key
+		// 	// Load some sample data
+		// 	localStorage.setItem("messageData", JSON.stringify(sample))
+		// }
+
+		// let channelIndex = null
+		let channelLastKey = null
+		let zoneIndex = null
+		let zoneLastKey = null
+		let dateIndex = null
+		let dateLastKey = null
+		let messageLastKey = null
+
+		for (let i = 0; i < data.length; i++) {
+			// console.log(i,"comparing channels",data[i].channel, channel)
+			// Find index of current channel, or potential key for new channel
+			// if (data[i].channel === channel) {
+
+			// 	channelIndex = i
+			// }
+
+			if (data[i].key > channelLastKey) {
+
+				channelLastKey = data[i].key
 			}
+			console.log(i,"channellastkey", channelLastKey)
+		}
+		console.log("channelIndex", channelIndex)
+		if (channelIndex != null) {
+			// console.log("channel was found", channelIndex)
+			// Find index of current time zone, or potential key for a new one
+			for (let i = 0; i < data[channelIndex].zones.length; i++) {
+				if (data[channelIndex].zones[i].zone === user.zone) {
 
-			if (data[channelKey -1]) {
+					zoneIndex = i
+				}
 
-				// Check if object for current date exists
-				for (let dateIndex = 0; dateIndex < data[channelKey -1].dates.length; dateIndex++) {
-					if (data[channelKey -1].dates[dateIndex].date === new Date().toDateString()) dateKey = data[channelKey -1].dates[dateIndex].key
+				if (data[channelIndex].zones[i].key > zoneLastKey) {
+
+					zoneLastKey = data[channelIndex].zones[i].key
 				}
 			}
 		}
+		// else {
+		// 	console.log("creating new channel",channelLastKey+1)
+		// 	// Create new channel in object
+		// 	data.push (
+		// 		{
+		// 		"key": ++channelLastKey,
+		// 		"channel": channel,
+		// 		"zones": []
+		// 		}
+		// 	)
 
-		if (channelKey === null) {
+		// 	channelIndex = data.length -1
+		// }
 
-			// Create new channel in object
-			channelKey = data.length +1
+		if (zoneIndex != null) {
+			console.log("zone was found", zoneIndex)
+			// Find index of current date, or potential key for new date
+			for (let i = 0; i < data[channelIndex].zones[zoneIndex].dates.length; i++) {
 
-			data.push (
+				if (data[channelIndex].zones[zoneIndex].dates[i].date === new Date().toDateString()) {
+
+					dateIndex = i
+				}
+
+				if (data[channelIndex].zones[zoneIndex].dates[i].key > dateLastKey) {
+
+					dateLastKey = data[channelIndex].zones[zoneIndex].dates[i].key
+				}
+			}
+		}
+		else {
+			console.log("adding new zone to data", zoneLastKey+1)
+			// Create new zone in object
+			data[channelIndex].zones.push (
 				{
-				"key": channelKey,
-				"channel": channel,
+				"key": ++zoneLastKey,
 				"zone": user.zone,
 				"dates": []
 				}
 			)
+
+			zoneIndex = data[channelIndex].zones.length -1
 		}
 
-		if (dateKey === null) {
+		if (dateIndex != null) {
+			// console.log("date was found", dateIndex)
+			// Find key for new message
+			for (let i = 0; i < data[channelIndex].zones[zoneIndex].dates[dateIndex].messages.length; i++) {
 
-			dateKey = data[channelKey -1].dates.length +1
+				if (data[channelIndex].zones[zoneIndex].dates[dateIndex].messages[i].key > messageLastKey) {
 
+					messageLastKey = data[channelIndex].zones[zoneIndex].dates[dateIndex].messages[i].key
+				}
+			}
+		}
+		else {
+			console.log("adding new date to data",dateLastKey+1)
 			// Create new object for current date
-			data[channelKey -1].dates.push (
+			data[channelIndex].zones[zoneIndex].dates.unshift (
 				{
-				"key": dateKey,
+				"key": ++dateLastKey,
 				"date": new Date().toDateString(),
-				"zone": user.zone,
 				"messages": []
 				}
 			)
+
+			dateIndex = 0
 		}
 
-		if (data[channelKey -1].dates[dateKey -1].messages.length > 0) {
-
-			messageKey = data[channelKey -1].dates[dateKey -1].messages.length +1
-		}
-		else {
-
-			messageKey = 1
-		}
-
-		data[channelKey -1].dates[dateKey -1].messages.push (
+		console.log("adding new message to data",messageLastKey+1)
+		data[channelIndex].zones[zoneIndex].dates[dateIndex].messages.unshift (
 			{
-			"key": messageKey,
+			"key": ++messageLastKey,
 			"time": new Date().toJSON(),
-			"zone": user.zone,
 			"lang": user.lang,
 			"author": user.name,
-			"body": message
+			"body": messageField
 			}
 		)
 
+		console.log("storing data in localstorage", data)
 		localStorage.setItem("messageData", JSON.stringify(data))
 
 		// Clear textarea
-		setMessage("")
+		setMessageField("")
+
+		// Refresh MessagesByDate
+		// setMessages("lol")
 	}
 
-	function updateMessage(event) {
-		setMessage(event.target.value)
+	function updateMessageField(event) {
+		setMessageField(event.target.value)
 	}
 
 	return (
@@ -112,7 +199,7 @@ export default function Compose () {
 			<div className="accordion__container">
 				<form onSubmit={submitForm} className="accordion__content compose">
 					<label htmlFor="message" className="invisible">Meldingstekst:</label>
-					<textarea onChange={updateMessage} value={message} name="message" id="message" placeholder="Hva tenker du på?" className="compose__textarea" />
+					<textarea onChange={updateMessageField} value={messageField} name="message" id="message" placeholder="Hva tenker du på?" className="compose__textarea" />
 					<div className="split">
 						<div className="split__grow">0 / 250</div>
 						<button className="split__shrink compose__submit">Send</button>
