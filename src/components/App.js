@@ -1,11 +1,11 @@
 import { useState } from "react"
 
 // JSX Components
-import Countdown		from "./components/Countdown"
-import MessageHistory	from "./components/MessageHistory"
-import Jump				from "./components/Jump"
-import SymbolLibrary	from "./components/SymbolLibrary"
-import sample			from "./data/messages.json"
+import Countdown		from "./Countdown"
+import MessageHistory	from "./MessageHistory"
+import Jump				from "./Jump"
+import SymbolLibrary	from "./SymbolLibrary"
+import sample			from "../data/messages.json"
 
 // Todo: load active channel / timezone from URL fragment / usersettings, or default
 const channelIndex = 0
