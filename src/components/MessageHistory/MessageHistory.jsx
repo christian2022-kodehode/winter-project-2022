@@ -18,11 +18,11 @@ const zoneIndex = 0
 // Load channel message groups (dates) from localStorage
 const dates = JSON.parse (localStorage.getItem ("messageData"))[channelIndex].zones[zoneIndex].dates
 
-export default function MessageHistory () {
+export default function MessageHistory (props) {
 
 	const children = dates.map ((date) => {
 
-		return <MessagesByDate key={date.key} date={date} />
+		return <MessagesByDate key={date.key} date={date} methods={props.methods} />
 	})
 
 	return (
