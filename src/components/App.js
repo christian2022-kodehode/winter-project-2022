@@ -5,17 +5,17 @@ import Countdown		from "./Countdown"
 import MessageHistory	from "./MessageHistory"
 import Jump				from "./Jump"
 import SymbolLibrary	from "./SymbolLibrary"
-import sample			from "../data/messages.json"
-
-// Todo: load active channel / timezone from URL fragment / usersettings, or default
-const channelIndex = 0
-const zoneIndex = 0
 
 // Inject some sample data if there are no messages in localstorage
+import sample from "../data/messages.json"
 if (!localStorage.getItem ("messageData")) {
 	console.log("Loading sample messages into buffer.")
 	localStorage.setItem("messageData", JSON.stringify(sample))
 }
+
+// Todo: load active channel / timezone from URL fragment / usersettings, or default
+const channelIndex = 0
+const zoneIndex = 0
 
 export default function App() {
 
