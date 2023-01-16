@@ -166,7 +166,7 @@ export default function Compose (props) {
 					<label htmlFor="message" className="invisible">Meldingstekst:</label>
 					<textarea onChange={updateMessageField} value={messageField} name="message" id="message" placeholder="Hva tenker du på?" className="compose__textarea" />
 					<div className="split">
-						<div className="split__grow">0 / 250</div>
+						<div className="split__grow">{messageField.length} / 250</div>
 						<button className="split__shrink compose__submit">Send</button>
 					</div>
 				</form>
