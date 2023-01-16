@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 
 // JSX Components
 import Countdown		from "./components/Countdown"

@@ -1,9 +1,9 @@
-import React from "react"
+import { useState } from "react"
 
 export default function Signin () {
 
-	const [username, setUsername] = React.useState ("")
-	const [displayname, setDisplayname] = React.useState ("Logg inn")
+	const [username, setUsername] = useState ("")
+	const [displayname, setDisplayname] = useState ("Logg inn")
 
 	let user = null
 
