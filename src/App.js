@@ -1,58 +1,34 @@
-import React from "react"
-import Countdown from "./components/Countdown/Countdown"
-import MessageHistory from "./components/MessageHistory/MessageHistory"
-import Jump from "./components/Jump/Jump"
-import SymbolLibrary from "./components/SymbolLibrary/SymbolLibrary"
-import submitForm from "./logic/submitForm"
+import React, { useState } from "react"
+
+// JSX Components
+import Countdown		from "./components/Countdown"
+import MessageHistory	from "./components/MessageHistory"
+import Jump				from "./components/Jump"
+import SymbolLibrary	from "./components/SymbolLibrary"
+import sample			from "./data/messages.json"
+
+// Todo: load active channel / timezone from URL fragment / usersettings, or default
+const channelIndex = 0
+const zoneIndex = 0
+
+// Inject some sample data if there are no messages in localstorage
+if (!localStorage.getItem ("messageData")) {
+	console.log("Loading sample messages into buffer.")
+	localStorage.setItem("messageData", JSON.stringify(sample))
+}
 
 export default function App() {
 
-	const [messageGroup, setMessageGroup] = React.useState ()
- 	const [messageField, setMessageField] = React.useState ("")
-
-	// const composeMethods = {
-	// 	"submitForm": submitForm,
-	// 	"messageField":
-	// 		{
-	// 		"method": setMessageField,
-	// 		"variable": messageField
-	// 		},
-	// 	"messageGroup":
-	// 		{
-	// 		"method": setMessageGroup,
-	// 		"variable": messageGroup
-	// 		}
-	// }
+	const [messages, setMessages] = useState (localStorage.getItem ("messageData"))
+	const [channel, setChannel] = useState(channelIndex)
+	const [zone, setZone] = useState(zoneIndex)
 
 	return (
 		<>
-			<Countdown methods={
-			
-				{
-				"submitForm": submitForm,
-				"messageField":
-					{
-					"method": setMessageField,
-					"variable": messageField
-					},
-				"messageGroup":
-					{
-					"method": setMessageGroup,
-					"variable": messageGroup
-					}
-				}
-			
-			} />
-			<MessageHistory methods={
-			
-				{
-				"method": setMessageGroup,
-				"variable": messageGroup
-				}
-			
-			} />
+			<Countdown method={setMessages} messages={messages} channel={channel} zone={zone} />
+			<MessageHistory messages={messages} channel={channel} zone={zone} />
 			<Jump />
 			<SymbolLibrary />
 		</>
-	);
+	)
 }

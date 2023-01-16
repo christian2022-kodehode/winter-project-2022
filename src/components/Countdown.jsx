@@ -1,6 +1,7 @@
-import Signin from "../Signin/Signin"
-import Channels from "../Channels/Channels"
-import Compose from "../Compose/Compose"
+//JSX Components
+import Signin from "./Signin"
+import Channels from "./Channels"
+import Compose from "./Compose"
 
 export default function Countdown (props) {
 	return (
@@ -25,7 +26,7 @@ export default function Countdown (props) {
 
 			</div>
 
-			<Compose methods={props.methods} />
+			<Compose method={props.method} messages={props.messages} channel={props.channel} zone={props.zone} />
 
 		</main>
 

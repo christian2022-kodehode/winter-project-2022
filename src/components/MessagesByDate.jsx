@@ -1,5 +1,4 @@
-import Message from "../Message/Message"
-// import React from "react"
+import Message from "./Message"
 
 export default function MessagesByDate (props) {
 
@@ -12,7 +11,7 @@ export default function MessagesByDate (props) {
 	
 		<div className="chat__grouping">
 			<h3 className="chat__date">{props.date.date}</h3>
-			{props.methods.method (children)}
+			{ children }
 		</div>
 	)
 }
