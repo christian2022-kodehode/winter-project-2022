@@ -8,9 +8,8 @@ import SymbolLibrary	from "./SymbolLibrary"
 
 // Inject some sample data if there are no messages in localstorage
 import sample from "../data/messages.json"
-if (!localStorage.getItem ("messageData")) {
-	console.log("Loading sample messages into buffer.")
-	localStorage.setItem("messageData", JSON.stringify(sample))
+if( !localStorage.getItem( "messageData" ) ) {
+	localStorage.setItem( "messageData", JSON.stringify( sample ) )
 }
 
 // Todo: load active channel / timezone from URL fragment / usersettings, or default
@@ -19,14 +18,15 @@ const zoneIndex = 0
 
 export default function App() {
 
-	const [messages, setMessages] = useState (localStorage.getItem ("messageData"))
-	const [channel, setChannel] = useState(channelIndex)
-	const [zone, setZone] = useState(zoneIndex)
+	const [messages, setMessages]	= useState( localStorage.getItem ( "messageData" ) )
+	const [channel, setChannel]		= useState( channelIndex )
+	const [zone, setZone]			= useState( zoneIndex )
 
-	return (
+	return(
+
 		<>
-			<Countdown method={setMessages} messages={messages} channel={channel} zone={zone} />
-			<MessageHistory messages={messages} channel={channel} zone={zone} />
+			<Countdown method={ setMessages } messages={ messages } channel={ channel } zone={ zone } />
+			<MessageHistory messages={ messages } channel={ channel } zone={ zone } />
 			<Jump />
 			<SymbolLibrary />
 		</>

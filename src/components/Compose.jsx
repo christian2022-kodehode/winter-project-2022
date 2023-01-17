@@ -1,17 +1,17 @@
 import { useState } from "react"
 
-export default function Compose (props) {
+export default function Compose( props ) {
 
-	const [messageField, setMessageField] = useState ("")
+	const [messageField, setMessageField] = useState( "" )
 
-	function updateMessageField(event) {
+	function updateMessageField( event ) {
 
-		setMessageField(event.target.value)
+		setMessageField( event.target.value )
 	}
 
-	function submitForm (event) {
+	function submitForm( event ) {
 
-		event.preventDefault ()
+		event.preventDefault()
 
 		// Todo: load channel index from URL fragment or default
 		const channelIndex = props.channel
@@ -25,61 +25,61 @@ export default function Compose (props) {
 
 		// Todo: load user object from context or default
 		let user = null
-		if (localStorage.getItem ("userData")) {
+		if( localStorage.getItem( "userData" ) ) {
 
 			// User settings
-			user = JSON.parse (localStorage.getItem ("userData"))
+			user = JSON.parse( localStorage.getItem( "userData" ) )
 		}
 		else {
 
 			// defaults
-			user = {
-				name: "Brukernavn",
-				darkmode: false,
-				zone: "cet",
-				lang: "nb",
-				displayMessageLang:
-					[
-					"nb",
-					"en"
-					],
-				theme: "default"
+			user =
+			{
+			name: "Brukernavn",
+			darkmode: false,
+			zone: "cet",
+			lang: "nb",
+			displayMessageLang:
+				[
+				"nb",
+				"en"
+				],
+			theme: "default"
 			}
 		}
 		
 		// Load existing message data from localStorage
-		const data = JSON.parse (localStorage.getItem ("messageData"))
+		const data = JSON.parse( localStorage.getItem( "messageData" ) )
 
-		for (let i = 0; i < data.length; i++) {
+		for( let i = 0; i < data.length; i++ ) {
 
-			if (data[i].key > channelLastKey) {
+			if( data[i].key > channelLastKey ) {
 
 				channelLastKey = data[i].key
 			}
 		}
 
-		if (channelIndex != null) {
+		if( channelIndex != null ) {
 
 			// Find index of current time zone, or potential key for a new one
-			for (let i = 0; i < data[channelIndex].zones.length; i++) {
-				if (data[channelIndex].zones[i].zone === user.zone) {
+			for( let i = 0; i < data[channelIndex].zones.length; i++ ) {
 
+				if( data[channelIndex].zones[i].zone === user.zone ) {
 					zoneIndex = i
 				}
 
-				if (data[channelIndex].zones[i].key > zoneLastKey) {
-
+				if( data[channelIndex].zones[i].key > zoneLastKey ) {
 					zoneLastKey = data[channelIndex].zones[i].key
 				}
 			}
 		}
 
-		if (zoneIndex != null) {
+		if( zoneIndex != null ) {
 
 			// Find index of current date, or potential key for new date
-			for (let i = 0; i < data[channelIndex].zones[zoneIndex].dates.length; i++) {
+			for( let i = 0; i < data[channelIndex].zones[zoneIndex].dates.length; i++ ) {
 
-				if (data[channelIndex].zones[zoneIndex].dates[i].date === new Date().toDateString()) {
+				if( data[channelIndex].zones[zoneIndex].dates[i].date === new Date().toDateString()) {
 
 					dateIndex = i
 				}
@@ -107,9 +107,9 @@ export default function Compose (props) {
 		if (dateIndex != null) {
 
 			// Find key for new message
-			for (let i = 0; i < data[channelIndex].zones[zoneIndex].dates[dateIndex].messages.length; i++) {
+			for( let i = 0; i < data[channelIndex].zones[zoneIndex].dates[dateIndex].messages.length; i++ ) {
 
-				if (data[channelIndex].zones[zoneIndex].dates[dateIndex].messages[i].key > messageLastKey) {
+				if( data[channelIndex].zones[zoneIndex].dates[dateIndex].messages[i].key > messageLastKey ) {
 
 					messageLastKey = data[channelIndex].zones[zoneIndex].dates[dateIndex].messages[i].key
 				}
@@ -139,16 +139,16 @@ export default function Compose (props) {
 			}
 		)
 
-		localStorage.setItem("messageData", JSON.stringify(data))
+		localStorage.setItem( "messageData", JSON.stringify( data ) )
 
 		// Clear textarea
-		setMessageField("")
+		setMessageField( "" )
 
 		// Refresh MessagesByDate
-		props.method(JSON.stringify(data))
+		props.method( JSON.stringify( data ) )
 	}
 
-	return (
+	return(
 
 		<div className="accordion accordion--primary accordion--fixed accordion--bottom accordion--compose">
 			<input type="checkbox" name="trigger-compose" id="trigger-compose" className="accordion__trigger" />
@@ -162,16 +162,15 @@ export default function Compose (props) {
 				</h2>
 			</label>
 			<div className="accordion__container">
-				<form onSubmit={submitForm} className="accordion__content compose">
+				<form onSubmit={ submitForm } className="accordion__content compose">
 					<label htmlFor="message" className="invisible">Meldingstekst:</label>
-					<textarea onChange={updateMessageField} value={messageField} name="message" id="message" placeholder="Hva tenker du på?" className="compose__textarea" />
+					<textarea onChange={ updateMessageField } value={ messageField } name="message" id="message" placeholder="Hva tenker du på?" className="compose__textarea" />
 					<div className="split">
-						<div className="split__grow">{messageField.length} / 250</div>
+						<div className="split__grow">{ messageField.length } / 250</div>
 						<button className="split__shrink compose__submit">Send</button>
 					</div>
 				</form>
 			</div>
 		</div>
-
 	)
 }

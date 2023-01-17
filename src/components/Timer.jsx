@@ -16,7 +16,7 @@ export default function Timer( props ) {
 		return formattedTime
 	}
 
-	const [ timer, setTimer ] = useState( getTimeRemaining() )
+	const [timer, setTimer] = useState( getTimeRemaining() )
 
 	// Refresh timer every second
 	useEffect(
@@ -27,19 +27,21 @@ export default function Timer( props ) {
 	)
 
 	// Format target date into human readable string
-	const dateOptions = {
-		hour12: false,
-		timeZone: "Europe/Oslo",
-		weekday: "long",
-		day: "numeric",
-		month: "long",
-		year: "numeric",
-		hour: "2-digit",
-		minute: "2-digit"
+	const dateOptions =
+	{
+	hour12: false,
+	timeZone: "Europe/Oslo",
+	weekday: "long",
+	day: "numeric",
+	month: "long",
+	year: "numeric",
+	hour: "2-digit",
+	minute: "2-digit"
 	}
 	const target = new Date( offsetTime ).toLocaleTimeString( "no-NB", dateOptions )
 
-	return (
+	return(
+
 		<div className="container">
 			<div className="countdown__label">
 				<h1 className="countdown__tag">{ props.channel.name }</h1>
