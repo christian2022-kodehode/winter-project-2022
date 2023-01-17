@@ -1,4 +1,25 @@
+import channels from "../data/messages.json"
+
+const user = { zone: "Europe/Oslo" }
+
 export default function Channels() {
+
+	const children = channels.map(
+		( channel ) => {
+			if( channel.zone === "local" || channel.zone === user.zone || channel.zone === "UTC" ) {
+				return(
+					<a
+					key={ channel.key }
+					href={ "#" + channel.name }
+					title={ channel.description }
+					className="tag" >
+						{ channel.name }
+					</a>
+				)
+			}
+		}
+	)
+
 	return(
 
 		<div className="accordion accordion--channels">
@@ -14,10 +35,7 @@ export default function Channels() {
 			</label>
 			<div className="accordion__container">
 				<div className="accordion__content countdown__channels">
-					<a href="#jul2023" className="tag">jul2023</a>
-					<a href="#dommedag" className="tag">dommedag</a>
-					<a href="#valg2025" className="tag">valg2025</a>
-					<a href="#2026" className="tag">2026</a>
+					{ children }
 				</div>
 			</div>
 		</div>
