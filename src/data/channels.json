@@ -6,18 +6,18 @@
 "endmessage": "God Jul!",
 "language": "nb",
 "style": "xmas",
-"time": "2023-12-24 00:00:00",
+"time": "2023-12-24",
 "zone": "local"
 },
 {
 "key": 2,
 "name": "dommedag",
 "description": "Astroiden Apophis kommer!",
-"endmessage": "Var det falsk alarm?",
+"endmessage": "Kommer når som helst nå...",
 "language": "nb",
 "style": "doom",
-"time": "2036-00-00 00:00:00",
-"zone": "gmt"
+"time": "2036-00-00",
+"zone": "UTC"
 },
 {
 "key": 3,
@@ -26,8 +26,8 @@
 "endmessage": "Gå og stem!",
 "language": "nb",
 "style": "default",
-"time": "2025-09-01 00:00:00",
-"zone": "cet"
+"time": "2025-09-01",
+"zone": "Europe/Oslo"
 },
 {
 "key": 4,
@@ -36,7 +36,7 @@
 "endmessage": "Takk for det gamle!",
 "language": "nb",
 "style": "party",
-"time": "2024-01-01T00:00:00.000Z",
+"time": "2024-01-01",
 "zone": "local"
 }
 ]
