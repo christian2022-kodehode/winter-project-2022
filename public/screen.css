@@ -352,7 +352,8 @@ button {
 	}
 
 	.accordion--signin .accordion__trigger:checked ~ .accordion__container {
-		max-height: 5em;
+		/* max-height: 5em; */
+		max-height: auto;
 	}
 
 	.accordion--channels .accordion__trigger:checked ~ .accordion__container {
@@ -576,7 +577,8 @@ button {
 @media (max-width: 26em) {
 
 	.accordion--signin .accordion__trigger:checked ~ .accordion__container {
-		max-height: 9em;
+		/* max-height: 9em; */
+		max-height: auto;
 	}
 
 	.accordion--signin .split__shrink {
