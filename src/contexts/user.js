@@ -1,3 +1,5 @@
+import { createContext } from "react";
+
 let user = null
 if( localStorage.getItem( "userData" ) ) {
 
@@ -6,9 +8,10 @@ if( localStorage.getItem( "userData" ) ) {
 }
 else {
 
-	// defaults
+	// Default settings
 	user =
 	{
+	signedIn: false,
 	name: "Anonymous",
 	darkmode: null,
 	zone: "Europe/Oslo",
@@ -23,3 +26,7 @@ else {
 	activeChannel: "2024"
 	}
 }
+
+const userContext = createContext(user)
+
+export default userContext
