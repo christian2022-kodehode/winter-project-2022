@@ -6,11 +6,21 @@ export default function MessageHistory( props ) {
 	// e.g. countdown to new years should be local to each time zone
 	// countdown to a global event should not be fragmented
 
-	const children = JSON.parse( props.messages )[props.channel].zones[props.zone].dates.map(
-		( date ) => {
-			return <MessagesByDate key={date.key} date={date} />
-		}
-	)
+	const channel = JSON.parse( props.messages )[props.channel]
+	let zone = null
+	let children = "Ingen meldinger har blitt sendt enda."
+
+	if ( channel.zones
+	&& channel.zones[props.zone]
+	&& channel.zones[props.zone].dates
+	&& channel.zones[props.zone].dates.length > 0 ) {
+
+		children = zone.dates.map(
+			( date ) => {
+				return <MessagesByDate key={date.key} date={date} />
+			}
+		)
+	}
 
 	return(
 

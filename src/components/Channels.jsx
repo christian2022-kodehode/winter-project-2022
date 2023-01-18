@@ -6,7 +6,9 @@ export default function Channels() {
 
 	const children = channels.map(
 		( channel ) => {
-			if( channel.zone === "local" || channel.zone === user.zone || channel.zone === "UTC" ) {
+			if( channel.zone === "local"
+			|| channel.zone === user.zone
+			|| channel.zone === "UTC" ) {
 				return(
 					<a
 					key={ channel.key }
