@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/static/js/main.37fc61c8.js",
-    "index.html": "/index.html",
-    "main.37fc61c8.js.map": "/static/js/main.37fc61c8.js.map"
+    "main.js": "/winter-project-2022/static/js/main.37fc61c8.js",
+    "index.html": "/winter-project-2022/index.html",
+    "main.37fc61c8.js.map": "/winter-project-2022/static/js/main.37fc61c8.js.map"
   },
   "entrypoints": [
     "static/js/main.37fc61c8.js"
