@@ -1,84 +1,104 @@
-import { useState, useContext } from "react"
+import { useState } from "react"
 
-// import User from "../contexts/User"
-
-export default function Signin() {
+export default function Signin( props ) {
 
 	const [fieldUsername, setFieldUsername] = useState( "" )
-
-	const defaultUser =
-	{
-	signedIn: false,
-	name: "",
-	darkmode: null,
-	zone: "Europe/Oslo",
-	locale: "no-NB",
-	uiLanguage: "no-NB",
-	chatLanguages:
-		[
-		"no-NB",
-		"en-US"
-		],
-	theme: "default",
-	activeChannel: "2024"
+	function updateFieldUsername( event ) {
+		setFieldUsername( event.target.value )
 	}
 
-	const [userInfo, setUserInfo] = useState( defaultUser )
+	function submitSignIn( event ) {
 
-	// const [isSignedIn, setSignedIn] = useState( false )
-	// let user = null //useContext(User)
+		event.preventDefault()
 
-	let userData = []
+		// Prepare default user settings
+		const defaultUser =
+		{
+		signedIn: true,
+		name: null,
+		darkmode: null,
+		zone: "Europe/Oslo",
+		locale: "no-NB",
+		uiLanguage: "no-NB",
+		chatLanguages:
+			[
+			"no-NB",
+			"en-US"
+			],
+		theme: "default",
+		activeChannel: "2024"
+		}
 
-	if( localStorage.getItem( "userData" ) ) {
-		userData = JSON.parse( localStorage.getItem( "userData" ) )
-		console.log("imported userData from localstorage", userData)
-	}
+		let userData = []
 
-	// Look for stored settings of user with submitted name
-	function findUserInfo( arr, property ) {
-		for( let i = 0; i > arr.length; i++ ) {
-			if( arr[i][property] === fieldUsername ) {
-				
-				// Return array index if match was found
-				return i
+		// Collect all users stored in localstorage
+		if( localStorage.getItem( "userData" ) ) {
+			userData = JSON.parse( localStorage.getItem( "userData" ) )
+		}
+
+		// Look for index of stored user matching provided name
+		let userIndex = null
+		for( let i = 0; i < userData.length; i++ ) {
+
+			if( userData[i].name === fieldUsername ) {
+
+				userIndex = i
+				break
 			}
 		}
 
-		// Return false if nothing was found
-		return false
+		if( userIndex != null ) {
+
+			// User already exists, update status and load settings
+			userData[userIndex].signedIn = true
+			props.method( userData[userIndex] )
+
+		}
+		else {
+
+			// User does not exist, apply default settings
+			defaultUser.name = fieldUsername
+			userData.push( defaultUser )
+			props.method( defaultUser )
+		}
+
+		// Update localstorage user data
+		localStorage.setItem( "userData", JSON.stringify( userData ) )
+		setFieldUsername( "" )
 	}
 
-	// Since this app is based on localstorage, we end up doing silly things
-	const signedInUser = findUserInfo( userData, "signedIn" )
 
-	if( signedInUser ) {
+	function submitChangeSettings( event ) {
 
-		// setSignedIn( true )
-		setUserInfo = userData[signedInUser]
-		console.log("user does exist", signedInUser, userData)
-	}
-	else {
-
-		console.log("user does not exist",signedInUser, userData)
+		event.preventDefault()
 	}
 
-	// const [userInfo, setUserInfo] = useState( user )
-	// const [displayname, setDisplayname] = useState( userInfo.signedIn ? userInfo.name : "Logg inn" )
 
-	// Todo: useffect that updates context when localstorage changes?
+	function submitSignOut( event ) {
 
-	// if( localStorage.getItem( "userData" ) ) {
-	// 	// Collect all stored userData
-	// 	userData = JSON.parse( localStorage.getItem( "userData" ) )
-	// }
-	// else
+		event.preventDefault()
 
-	// const userIndex = findUserInfo( userData, name )
+		let userData = null
+
+		if( localStorage.getItem( "userData" ) ) {
+			userData = JSON.parse( localStorage.getItem( "userData" ) )
+		}
+
+		for( let i = 0; i < userData.length; i++ ) {
+			if( userData[i].name === props.user.name ) {
+				
+				userData[i].signedIn = false
+			}
+		}
+
+		props.method({})
+
+		localStorage.setItem( "userData", JSON.stringify( userData ) )
+	}
 
 	function displayUserPanel() {
 	
-		if( userInfo.signedIn ) {
+		if( props.user.signedIn ) {
 
 			return(
 
@@ -86,7 +106,7 @@ export default function Signin() {
 
 					<form onSubmit={ submitChangeSettings }>
 						
-						<h3>Innlogget som { userInfo.name }</h3>
+						<h3>Innlogget som { props.user.name }</h3>
 						<label htmlFor="darkmode" >
 							Mørk modus
 							<input type="checkbox" name="darkmode" id="darkmode" />
@@ -124,66 +144,17 @@ export default function Signin() {
 
 			return(
 
-				<form onSubmit={ submitSignin } className="accordion__content">
+				<form onSubmit={ submitSignIn } className="accordion__content">
 					<div className="split">
 						<div className="split__grow">
 							<label htmlFor="username" className="invisible">Brukernavn:</label>
 							<input onChange={ updateFieldUsername } value={ fieldUsername } type="text" name="username" id="username" placeholder="Hvem er du?" />
 						</div>
-						<button className="split__shrink">Logg inn</button>
+						<button className="split__shrink" disabled={ fieldUsername.length < 3 }>Logg inn</button>
 					</div>
 				</form>
 			)
 		}
-	}
-
-	function submitSignOut( event ) {
-
-		event.preventDefault()
-
-		console.log("user in array",userData,signedInUser)
-		console.log("user state", userInfo)
-		userData[signedInUser].signedIn = false
-		setUserInfo(userInfo.signedIn = false)
-		localStorage.setItem( "userData", JSON.stringify( userData ) )
-	}
-
-	function submitChangeSettings( event ) {
-
-		event.preventDefault()
-	}
-
-	function submitSignin( event ) {
-
-		event.preventDefault()
-		console.log("userData pre-push",userData)
-		console.log("checking signedinuser", signedInUser)
-		if( signedInUser ) {
-			console.log("user was found, updating signedin value", userData[signedInUser])
-			userData[signedInUser].signedIn = true
-		} else {
-			defaultUser.name = fieldUsername
-			defaultUser.signedIn = true
-			console.log("user not found, updating default user", defaultUser)
-			userData.push( defaultUser )
-		}
-		console.log("updated userdata array", userData)
-
-		// React is too stubborn
-		const mutateProperty = userInfo
-		mutateProperty.signedIn = true
-		setUserInfo( mutateProperty )
-
-		// Update localstorage user data
-		localStorage.setItem( "userData", JSON.stringify( userData ) )
-
-		console.log("is the user signed in?",userInfo)
-		console.log("setting userdata", userInfo)
-		console.log("localstorage userdata",JSON.parse(localStorage.getItem( "userData" )))
-	}
-
-	function updateFieldUsername( event ) {
-		setFieldUsername( event.target.value )
 	}
 
 	return(
@@ -196,7 +167,7 @@ export default function Signin() {
 
 			</div>
 			<label htmlFor="trigger-signin" className="accordion__toggle accordion__header accordion__header--invert">
-				{ userInfo.signedIn ? userInfo.name : "Logg inn" }
+				{ props.user.signedIn ? props.user.name : "Logg inn" }
 				<svg className="icon accordion__indicator">
 					<title>Pil som indikerer utvidbart innhold</title>
 					<use href="#symbol-singlechevron-down" />
