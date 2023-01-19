@@ -1,0 +1,602 @@
+/*
+ *   Contents:
+ *   1. Global styles
+ *   2. Element styles
+ *   3. Layout components
+ *   4. Content components
+ *   5. Screen-size overrides
+ *
+ * * * */
+
+
+/*
+ *   1. Global styles
+ *
+ * * * */
+
+@font-face {
+	font-family: Heebo;
+	src: url("Heebo-VariableFont_wght.ttf") format("truetype");
+}
+
+*,
+:before,
+:after {
+	box-sizing: border-box;
+}
+
+html {
+	--background-transparent: hsl(200deg 0% 100% / 50%);
+	--background: hsl(200deg 10% 70%);
+	--foreground-contrast: hsl(200deg 10% 90%);
+	--foreground: hsl(200deg 10% 10%);
+	--highlight-contrast: hsl(15deg 100% 90%);
+	--highlight-focus: hsl(15deg 75% 50%);
+	--highlight-transparent: hsl(0deg 50% 50% / 90%);
+	--highlight: hsl(0deg 50% 50%);
+	--inputfield-background-focus: hsl(200deg 50% 100%);
+	--inputfield-background: hsl(200deg 50% 90%);
+	--inputfield-border: hsl(200deg 50% 100%);
+	--inputfield-text: hsl(200deg 10% 10%);
+	--link-contrast-focus: hsl(200deg 100% 75%);
+	--link-contrast-visited: hsl(200deg 100% 66%);
+	--link-contrast: hsl(200deg 100% 66%);
+	--link-focus: hsl(200deg 100% 10%);
+	--link-visited: hsl(200deg 33% 10%);
+	--link: hsl(200deg 66% 10%);
+	--message-background: hsl(200deg 0% 100% / 90%);
+	--message-border: hsl(200deg 0% 100%);
+	--message-text: hsl(200deg 10% 10%);
+	--primary-contrast: hsl(200deg 0% 100%);
+	--primary-focus: hsl(200deg 100% 33%);
+	--primary-transparent: hsl(200deg 100% 25% / 90%);
+	--primary: hsl(200deg 100% 25%);
+	--secondary-contrast: hsl(200deg 0% 100%);
+	--secondary-focus: hsl(200deg 100% 50%);
+	--secondary-transparent: hsl(200deg 33% 33% / 90%);
+	--secondary: hsl(200deg 33% 33%);
+	--separator: hsl(200deg 10% 10% / 20%);
+	--background-image: url("../graphics/Clarence.svg");
+	--transition-color:
+		color 300ms ease-in-out,
+		background-color 300ms ease-in-out,
+		border-color 300ms ease-in-out;
+}
+
+@media (prefers-color-scheme: dark) {
+	html {
+		--background-transparent: hsl(200deg 50% 20% / 50%);
+		--background: hsl(200deg 50% 10%);
+		--foreground-contrast: hsl(200deg 10% 10%);
+		--foreground: hsl(200deg 25% 80%);
+		--highlight-contrast: hsl(15deg 100% 80%);
+		--highlight-focus: hsl(15deg 100% 50%);
+		--highlight-transparent: hsl(0deg 50% 40% / 90%);
+		--highlight: hsl(0deg 100% 40%);
+		--inputfield-background-focus: hsl(200deg 50% 50% / 90%);
+		--inputfield-background: hsl(200deg 50% 50% / 80%);
+		--inputfield-border: hsl(200deg 50% 50%);
+		--inputfield-text: hsl(200deg 10% 90%);
+		--link-contrast-focus: hsl(200deg 100% 30%);
+		--link-contrast-visited: hsl(200deg 100% 30%);
+		--link-contrast: hsl(200deg 100% 30%);
+		--link-focus: hsl(200deg 100% 80%);
+		--link-visited: hsl(200deg 25% 50%);
+		--link: hsl(200deg 75% 50%);
+		--message-background: hsl(200deg 10% 30% / 90%);
+		--message-border: hsl(200deg 10% 30%);
+		--message-text: hsl(200deg 10% 75%);
+		--primary-contrast: hsl(200deg 10% 75%);
+		--primary-focus: hsl(200deg 100% 40%);
+		--primary-transparent: hsl(200deg 100% 30% / 80%);
+		--primary: hsl(200deg 100% 30%);
+		--secondary-contrast: hsl(200deg 25% 75%);
+		--secondary-focus: hsl(200deg 100% 40%);
+		--secondary-transparent: hsl(200deg 25% 30% / 90%);
+		--secondary: hsl(200deg 25% 30%);
+		--separator: hsl(200deg 10% 90% / 20%);
+		--background-image: none;
+	}
+}
+
+
+
+/*
+ *   2. Element styles
+ *
+ * * * */
+
+body {
+	background-attachment: fixed;
+	background-color: var(--background);
+	background-image: var(--background-image);
+	color: var(--foreground);
+	font-family: Heebo, sans-serif;
+	line-height: 1.3;
+	margin: 0;
+	min-height: 100vh;
+	padding: 0 6%;
+}
+
+h1 {
+	letter-spacing: -0.03em;
+}
+
+h2 {
+	font-size: 125%;
+	font-weight: 300;
+	letter-spacing: -0.03em;
+}
+
+a {
+	transition: var(--transition-color);
+}
+
+input[type=text],
+textarea {
+	background-color: var(--inputfield-background);
+	border-radius: 0.5em;
+	border-radius: 0.5em;
+	border: 0.2em solid var(--inputfield-border);
+	color: var(--inputfield-text);
+	font-family: inherit;
+	font-size: inherit;
+	min-width: 3em;
+	padding: 0.5em 1em;
+	transition: var(--transition-color);
+}
+	input[type=text]:hover,
+	input[type=text]:focus,
+	textarea:hover,
+	textarea:focus {
+		background-color: var(--inputfield-background-focus);
+	}
+
+textarea {
+	border-radius: 0.5em;
+	display: block;
+	min-height: 6em;
+	resize: vertical;
+	width: 100%;
+}
+
+::placeholder {
+	color: var(--inputfield-text);
+	opacity: 0.5;
+}
+
+button {
+	background-color: var(--highlight);
+	border-radius: 0.5em;
+	border-style: none;
+	color: var(--highlight-contrast);
+	cursor: pointer;
+	font-size: inherit;
+	font-weight: 600;
+	letter-spacing: -0.05em;
+	line-height: 3;
+	padding: 0 2em;
+	transition: var(--transition-color);
+	white-space: nowrap;
+}
+	button:hover,
+	button:focus {
+		background-color: var(--highlight-focus);
+	}
+
+
+
+/*
+ *   Layout components
+ *
+ * * * */
+
+.icon {
+	height: 1em;
+	vertical-align: middle;
+	width: 1em;
+}
+
+.container {
+	background-color: var(--background-transparent);
+	border-radius: 1em;
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.tag {
+	background-color: var(--secondary);
+	border-radius: 0.25em;
+	color: var(--primary-contrast);
+	display: inline-block;
+	line-height: 1;
+	margin-bottom: 0.25em;
+	padding: 0.25em 0.5em;
+	text-decoration: none;
+}
+	.tag:before {
+		content: "#";
+		opacity: 0.5;
+	}
+
+	.tag:hover {
+		background-color: var(--secondary-focus);
+	}
+
+	/* temporary workaround hack for React ignoring whitespace for no good reason */
+	.tag + .tag {
+		margin-left: 0.5em;
+	}
+
+/* .accordion {
+} */
+	.accordion__toggle {
+		cursor: pointer;
+	}
+
+	.accordion__trigger {
+		left: 1rem;
+		opacity: 0;
+		position: absolute;
+		top: 1rem;
+	}
+
+	.accordion__trigger:checked ~ .accordion__container {
+		max-height: 100vh;
+		transition-timing-function: ease-in;
+	}
+
+	.accordion__header {
+		align-items: center;
+		border-bottom-style: solid;
+		border-color: var(--separator);
+		border-radius: 1rem 1rem 0 0;
+		border-width: 1px;
+		color: var(--link);
+		display: flex;
+		gap: 1em;
+		justify-content: space-between;
+		line-height: 2;
+		margin: 0;
+		overflow-x: hidden; /* Lazy fix for indicators causing horisontal scrollbars during rotation transition */
+		transition: var(--transition-color);
+	}
+		.accordion__header:hover,
+		.accordion__header:focus {
+			color: var(--link-focus);
+		}
+
+	.accordion__indicator {
+		transition-duration: 300ms;
+		transition-property: transform;
+		transition-timing-function: ease-in-out;
+	}
+
+	.accordion__trigger:checked ~ .accordion__toggle .accordion__indicator {
+		transform: rotate(-180deg);
+	}
+
+	.accordion__container {
+		overflow: hidden;
+		transition-duration: 300ms;
+		transition-property: max-height;
+		transition-timing-function: ease-in;
+		max-height: 0vh;
+	}
+
+	.accordion__content {
+		padding-top: 1em;
+	}
+
+	.accordion--fixed {
+		position: fixed;
+		z-index: 2;
+	}
+
+	.accordion--bottom {
+		bottom: 0;
+		left: 6%;
+		right: 6%;
+		top: auto;
+	}
+
+	.accordion--primary a:link {
+		color: var(--primary-link);
+	}
+
+	.accordion--primary a:visited {
+		color: var(--primary-link-visited);
+	}
+
+	.accordion--primary a:hover,
+	.accordion--primary a:focus {
+		color: var(--primary-link-focus);
+	}
+
+	.accordion__header--invert {
+		border-radius: 0 0 1rem 1rem;
+	}
+
+	.accordion--primary .accordion__header {
+		background-color: var(--primary);
+		border-style: none;
+		color: var(--primary-contrast);
+		padding: 0 2rem;
+	}
+		.accordion--primary .accordion__header:hover,
+		.accordion--primary .accordion__header:focus {
+			background-color: var(--primary-focus);
+		}
+
+	.accordion--primary .accordion__container {
+		background-color: var(--primary-transparent);
+		color: var(--primary-contrast);
+	}
+
+	.accordion--primary .accordion__content {
+		padding: 1em 2em;
+	}
+
+	.accordion--compose {
+		display: none;
+	}
+
+	.status-authenticated .accordion--compose {
+		display: initial;
+	}
+
+	.accordion--compose .accordion__trigger:checked ~ .accordion__container {
+		max-height: 11.5em;
+	}
+
+	.accordion--signin .accordion__trigger:checked ~ .accordion__container {
+		/* max-height: 5em; */
+		max-height: auto;
+	}
+
+	.accordion--channels .accordion__trigger:checked ~ .accordion__container {
+		max-height: 5em;
+	}
+
+.split {
+	align-content: stretch;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 1em;
+	justify-content: space-between;
+	line-height: 3;
+}
+	.split__grow {
+		flex-grow: 1;
+	}
+
+	.split__shrink {
+		flex-shrink: 1;
+	}
+
+.jump {
+	display: none;
+}
+
+.invisible {
+	opacity: 0;
+	position: absolute;
+}
+
+
+
+/*
+ *   4. Content components
+ *
+ * * * */
+
+.compose__textarea {
+	border-radius: 1em 1em 0 1em;
+	margin-bottom: 0.5em;
+	resize: none;
+}
+
+.compose__submit {
+	border-radius: 1em 0 1em 1em;
+}
+
+.countdown {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+	.countdown__current {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		gap: 1em;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.countdown__time {
+		background-color: var(--highlight);
+		border-radius: 0.5em;
+		color: var(--highlight-contrast);
+		padding: 1em 0;
+		line-height: 1;
+	}
+
+	.countdown__now {
+		font-size: 7vw;
+		margin: 0;
+		white-space: nowrap;
+	}
+
+	.countdown__target {
+		/* margin: 0; */
+		opacity: 0.5;
+	}
+
+	.countdown__label {
+		background-color: var(--secondary);
+		border-radius: 0.5em;
+		color: var(--secondary-contrast);
+		line-height: 1;
+		padding: 1em;
+	}
+
+	.countdown__tag {
+		font-size: 300%;
+		letter-spacing: -0.05em;
+		margin: 0;
+	}
+		.countdown__tag:before {
+			content: "#";
+			opacity: 0.5;
+		}
+
+	.countdown__channels {
+		flex-shrink: 1;
+		text-align: end;
+		text-align: start;
+	}
+
+.chat {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	flex-shrink: 1;
+	justify-content: flex-end;
+}
+	.chat__history {
+		padding-bottom: 10em;
+	}
+
+	.chat__date {
+		opacity: 0.5;
+		overflow-anchor: none;
+		text-align: center;
+	}
+
+	.chat__anchor {
+		height: 1px;
+		overflow-anchor: auto;
+	}
+
+.message {
+	background-color: var(--message-background);
+	border-radius: 1em 1em 0 1em;
+	border: 3px solid var(--message-border);
+	color: var(--message-text);
+	margin-bottom: 1em;
+	overflow-anchor: none;
+	padding: 1em 2em;
+	transition: var(--transition-color);
+}
+	.message__byline {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	.message__timestamp {
+		margin: 0;
+		opacity: 0.5;
+		white-space: nowrap;
+	}
+
+	.message__author {
+		color: var(--primary);
+		margin: 0;
+	}
+
+
+
+/*
+ *   5. Screen-size overrides
+ *
+ * * * */
+
+@media (min-width: 44em) {
+
+	body {
+		padding: 0 6% 0 53%;
+		position: relative;
+	}
+
+	.split {
+		flex-wrap: nowrap;
+	}
+
+	.accordion--fixed.accordion--bottom {
+		right: 53%;
+	}
+
+	.countdown {
+		bottom: 0;
+		left: 6%;
+		max-height: 100vh;
+		overflow-y: auto;
+		position: fixed;
+		right: 53%;
+		top: 0;
+	}
+
+	.countdown__now {
+		font-size: 3.5vw;
+	}
+
+	.jump {
+		align-items: center;
+		border-radius: 50%;
+		border: 0.25vw solid var(--primary);
+		color: var(--primary);
+		display: flex;
+		font-size: 2vw;
+		height: 3vw;
+		justify-content: center;
+		line-height: 1;
+		opacity: 1;
+		position: fixed;
+		right: 1.5vw;
+		text-align: center;
+		text-decoration: none;
+		top: 1.5vw;
+		transition: var(--transition-color);
+		width: 3vw;
+		z-index: 2;
+	}
+		.jump:hover,
+		.jump:focus {
+			background-color: var(--highlight-contrast);
+		}
+}
+
+@media (max-width: 26em) {
+
+	.accordion--signin .accordion__trigger:checked ~ .accordion__container {
+		/* max-height: 9em; */
+		max-height: auto;
+	}
+
+	.accordion--signin .split__shrink {
+		flex-grow: 1;
+ 	}
+}
+
+@media (max-width: 17em) {
+
+	.accordion--compose .split {
+		line-height: 1;
+	}
+
+	.accordion--compose .split__shrink {
+		flex-grow: 1;
+	}
+
+	.accordion--compose .accordion__trigger:checked ~ .accordion__container {
+		max-height: 15.5em;
+	}
+}
