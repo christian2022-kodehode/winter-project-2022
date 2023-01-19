@@ -25,7 +25,6 @@ function findSignedInUser() {
 export default function Countdown( props ) {
 
 	const channel = JSON.parse( props.messages )[props.channel]
-	console.log("channel", channel)
 
 	// Take provided time and adjust for user's time zone
 	const offsetTime = ( new Date().getTimezoneOffset() * 1000 * 60 ) + Date.parse( channel.time )
