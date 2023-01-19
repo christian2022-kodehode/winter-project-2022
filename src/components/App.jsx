@@ -13,7 +13,7 @@ if( !localStorage.getItem( "messageData" ) ) {
 }
 
 // Todo: load active channel / timezone from URL fragment / usersettings, or default
-const channelIndex = 0
+const channelIndex = 3
 const zoneIndex = 0
 
 export default function App() {

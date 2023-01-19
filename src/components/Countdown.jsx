@@ -1,11 +1,10 @@
-import { useState, useContext } from "react"
-import channel from "../data/channels.json"
+import { useState } from "react"
 
 //JSX Components
-import UserPanel from "./UserPanel"
-import Channels from "./Channels"
-import Compose from "./Compose"
-import Timer from "./Timer"
+import UserPanel		from "./UserPanel"
+import Channels			from "./Channels"
+import Compose			from "./Compose"
+import CountdownTimer	from "./CountdownTimer"
 
 let userData = {}
 if( localStorage.getItem( "userData" ) ) {
@@ -23,8 +22,27 @@ function findSignedInUser() {
 	return false
 }
 
-
 export default function Countdown( props ) {
+
+	const channel = JSON.parse( props.messages )[props.channel]
+	console.log("channel", channel)
+
+	// Take provided time and adjust for user's time zone
+	const offsetTime = ( new Date().getTimezoneOffset() * 1000 * 60 ) + Date.parse( channel.time )
+
+	// Format target date into human readable string
+	const dateOptions =
+	{
+	hour12: false,
+	timeZone: "Europe/Oslo",
+	weekday: "long",
+	day: "numeric",
+	month: "long",
+	year: "numeric",
+	hour: "2-digit",
+	minute: "2-digit"
+	}
+	const target = new Date( offsetTime ).toLocaleTimeString( "no-NB", dateOptions )
 
 	const channelId = 3
 
@@ -37,8 +55,18 @@ export default function Countdown( props ) {
 			<UserPanel method={ setUser } user={ user } />
 
 			<div className="countdown__current">
-
-				<Timer channel={ channel[channelId] } />
+				<div className="container">
+					<div className="countdown__label">
+						<h1 className="countdown__tag">{ channel.name }</h1>
+						<div className="countdown__description">{ channel.description }</div>
+					</div>
+					<div className="countdown__time">
+						<h2 className="countdown__now">
+							-<CountdownTimer target={ offsetTime } />
+						</h2>
+						<div className="countdown__target">{ target }</div>
+					</div>
+				</div>
 
 				<Channels />
 
