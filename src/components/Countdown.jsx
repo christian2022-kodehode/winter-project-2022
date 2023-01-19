@@ -2,7 +2,7 @@ import { useState, useContext } from "react"
 import channel from "../data/channels.json"
 
 //JSX Components
-import Signin from "./Signin"
+import UserPanel from "./UserPanel"
 import Channels from "./Channels"
 import Compose from "./Compose"
 import Timer from "./Timer"
@@ -34,7 +34,7 @@ export default function Countdown( props ) {
 
 		<main className="countdown">
 
-			<Signin method={ setUser } user={ user } />
+			<UserPanel method={ setUser } user={ user } />
 
 			<div className="countdown__current">
 
