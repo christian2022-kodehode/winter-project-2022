@@ -1,4 +1,4 @@
-import MessagesByDate from "./MessagesByDate"
+import MessageGroup from "./MessageGroup"
 
 export default function MessageHistory( props ) {
 
@@ -16,7 +16,7 @@ export default function MessageHistory( props ) {
 
 		children = channel.zones[props.zone].dates.map(
 			( date ) => {
-				return <MessagesByDate key={date.key} date={date} />
+				return <MessageGroup key={date.key} date={date} />
 			}
 		)
 	}
