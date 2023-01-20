@@ -1,33 +1,36 @@
-import { useState } from "react"
-
 // This file is a work in progress
 
+// Props:
+// setUser={ props.setUser } state function
+// user={ props.user } stringified object state
+
+import { useState } from "react"
+
 export default function UserSettings( props ) {
+
+	const username = JSON.parse( props.user ).name
+	const userData = JSON.parse( localStorage.getItem( "userData" ) )
+
 	function submitChangeSettings( event ) {
 
 		event.preventDefault()
+
+		// Some magic will happen here
 	}
 
 	function submitSignOut( event ) {
 
 		event.preventDefault()
 
-		let userData = null
-
-		if( localStorage.getItem( "userData" ) ) {
-			userData = JSON.parse( localStorage.getItem( "userData" ) )
-		}
-
 		for( let i = 0; i < userData.length; i++ ) {
-			if( userData[i].name === props.user.name ) {
+			if( userData[i].name === username ) {
 				
 				userData[i].signedIn = false
 			}
 		}
 
-		props.method({})
-
 		localStorage.setItem( "userData", JSON.stringify( userData ) )
+		props.setUser(false)
 	}
 
 	return(
@@ -36,11 +39,13 @@ export default function UserSettings( props ) {
 
 			<form onSubmit={ submitChangeSettings }>
 				
-				<h3>Innlogget som { props.user.name }</h3>
-				<label htmlFor="darkmode" >
-					Mørk modus
-					<input type="checkbox" name="darkmode" id="darkmode" />
-				</label>
+				<h3>{ username }</h3>
+				<label htmlFor="darkmode" >Mørk modus</label>
+				<select name="darkmode" id="darkmode" defaultValue={"auto"}>
+					<option value="auto">Automatisk</option>
+					<option value="always">Alltid</option>
+					<option value="never">Aldrig</option>
+				</select>
 
 				<label htmlFor="timezone" >Tidssone</label>
 				<select name="timezone" id="timezone" defaultValue={"Europe/Oslo"}>
@@ -48,12 +53,12 @@ export default function UserSettings( props ) {
 					<option value="Europe/Oslo">Oslo</option>
 				</select>
 
-				<button>OK</button>
+				<button>Lagre innstillinger</button>
 
 			</form>
 
 			{/* <ul>
-				<li>Username: { user.name }</li>
+				<li>username: { user.name }</li>
 				<li>Dark mode: { user.darkmode }</li>
 				<li>Timezone: { user.zone }</li>
 				<li>Locale: { user.locale }</li>

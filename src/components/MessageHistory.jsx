@@ -1,25 +1,20 @@
 import MessageGroup from "./MessageGroup"
 
+// Props:
+// messages={ messages[channel].zones[zone] }
+
 export default function MessageHistory( props ) {
 
 	// Todo: create logic for determining if channel should be fragmented based on time zone
 	// e.g. countdown to new years should be local to each time zone
 	// countdown to a global event should not be fragmented
-
-	const channel = JSON.parse( props.messages )[props.channel]
+	const dates = JSON.parse( props.messages )[props.channel].zones[props.zone].dates
 	let children = "Ingen meldinger har blitt sendt enda."
-
-	if ( channel.zones
-	&& channel.zones[props.zone]
-	&& channel.zones[props.zone].dates
-	&& channel.zones[props.zone].dates.length > 0 ) {
-
-		children = channel.zones[props.zone].dates.map(
-			( date ) => {
-				return <MessageGroup key={date.key} date={date} />
-			}
-		)
-	}
+	children = dates.map(
+		( date ) => {
+			return <MessageGroup key={ date.key } date={ date } />
+		}
+	)
 
 	return(
 

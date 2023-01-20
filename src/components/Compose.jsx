@@ -1,55 +1,33 @@
 import { useState } from "react"
 
+// Props:
+// user={ user } state stringified object
+// setMessages={ setMessages } state function
+// messages={ messages } state stringified object
+// channel={ channel } index numeral
+// zone={ zone } index numeral
+
 export default function Compose( props ) {
 
+	// Let React handle form field input
 	const [messageField, setMessageField] = useState( "" )
-
 	function updateMessageField( event ) {
-
 		setMessageField( event.target.value )
 	}
 
+	// Process submitted data
 	function submitForm( event ) {
 
 		event.preventDefault()
 
-		// Todo: load channel index from URL fragment or default
-		const channelIndex = props.channel
-
 		let channelLastKey = null
-		let zoneIndex = props.zone
 		let zoneLastKey = null
 		let dateIndex = null
 		let dateLastKey = null
 		let messageLastKey = null
 
-		// Todo: load user object from context or default
-		let user = null
-		if( localStorage.getItem( "userData" ) ) {
-
-			// User settings
-			user = JSON.parse( localStorage.getItem( "userData" ) )
-		}
-		else {
-
-			// defaults
-			user =
-			{
-			name: "Brukernavn",
-			darkmode: false,
-			zone: "cet",
-			lang: "nb",
-			displayMessageLang:
-				[
-				"nb",
-				"en"
-				],
-			theme: "default"
-			}
-		}
-		
-		// Load existing message data from localStorage
-		const data = JSON.parse( localStorage.getItem( "messageData" ) )
+		const data = JSON.parse( props.messages )
+		const user = JSON.parse( props.user )
 
 		for( let i = 0; i < data.length; i++ ) {
 
@@ -59,41 +37,41 @@ export default function Compose( props ) {
 			}
 		}
 
-		if( channelIndex != null ) {
+		if( props.channel != null ) {
 
 			// Find index of current time zone, or potential key for a new one
-			for( let i = 0; i < data[channelIndex].zones.length; i++ ) {
+			for( let i = 0; i < data[props.channel].zones.length; i++ ) {
 
-				if( data[channelIndex].zones[i].zone === user.zone ) {
-					zoneIndex = i
+				if( data[props.channel].zones[i].zone === user.zone ) {
+					props.zone = i
 				}
 
-				if( data[channelIndex].zones[i].key > zoneLastKey ) {
-					zoneLastKey = data[channelIndex].zones[i].key
+				if( data[props.channel].zones[i].key > zoneLastKey ) {
+					zoneLastKey = data[props.channel].zones[i].key
 				}
 			}
 		}
 
-		if( zoneIndex != null ) {
+		if( props.zone != null ) {
 
 			// Find index of current date, or potential key for new date
-			for( let i = 0; i < data[channelIndex].zones[zoneIndex].dates.length; i++ ) {
+			for( let i = 0; i < data[props.channel].zones[props.zone].dates.length; i++ ) {
 
-				if( data[channelIndex].zones[zoneIndex].dates[i].date === new Date().toDateString()) {
+				if( data[props.channel].zones[props.zone].dates[i].date === new Date().toDateString()) {
 
 					dateIndex = i
 				}
 
-				if (data[channelIndex].zones[zoneIndex].dates[i].key > dateLastKey) {
+				if (data[props.channel].zones[props.zone].dates[i].key > dateLastKey) {
 
-					dateLastKey = data[channelIndex].zones[zoneIndex].dates[i].key
+					dateLastKey = data[props.channel].zones[props.zone].dates[i].key
 				}
 			}
 		}
 		else {
 
 			// Create new zone in object
-			data[channelIndex].zones.push (
+			data[props.channel].zones.push (
 				{
 				"key": ++zoneLastKey,
 				"zone": user.zone,
@@ -101,24 +79,24 @@ export default function Compose( props ) {
 				}
 			)
 
-			zoneIndex = data[channelIndex].zones.length -1
+			props.zone = data[props.channel].zones.length -1
 		}
 
 		if (dateIndex != null) {
 
 			// Find key for new message
-			for( let i = 0; i < data[channelIndex].zones[zoneIndex].dates[dateIndex].messages.length; i++ ) {
+			for( let i = 0; i < data[props.channel].zones[props.zone].dates[dateIndex].messages.length; i++ ) {
 
-				if( data[channelIndex].zones[zoneIndex].dates[dateIndex].messages[i].key > messageLastKey ) {
+				if( data[props.channel].zones[props.zone].dates[dateIndex].messages[i].key > messageLastKey ) {
 
-					messageLastKey = data[channelIndex].zones[zoneIndex].dates[dateIndex].messages[i].key
+					messageLastKey = data[props.channel].zones[props.zone].dates[dateIndex].messages[i].key
 				}
 			}
 		}
 		else {
 
 			// Create new object for current date
-			data[channelIndex].zones[zoneIndex].dates.unshift (
+			data[props.channel].zones[props.zone].dates.unshift (
 				{
 				"key": ++dateLastKey,
 				"date": new Date().toDateString(),
@@ -129,11 +107,11 @@ export default function Compose( props ) {
 			dateIndex = 0
 		}
 
-		data[channelIndex].zones[zoneIndex].dates[dateIndex].messages.unshift (
+		data[props.channel].zones[props.zone].dates[dateIndex].messages.unshift (
 			{
 			"key": ++messageLastKey,
 			"time": new Date().toJSON(),
-			"lang": user.lang,
+			"language": user.uiLanguage,
 			"author": user.name,
 			"body": messageField
 			}
@@ -145,7 +123,9 @@ export default function Compose( props ) {
 		setMessageField( "" )
 
 		// Refresh MessagesByDate
-		props.method( JSON.stringify( data ) )
+		props.setMessages( JSON.stringify( data ) )
+
+		// Todo: close compose accordion
 	}
 
 	return(

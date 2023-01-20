@@ -1,4 +1,6 @@
 // This component displays and processes user sign-in form
+// Props:
+// setUser={ props.setUser } state function
 
 import { useState } from "react"
 
@@ -54,7 +56,7 @@ export default function UserSignIn( props ) {
 
 			// User already exists, update status and load settings
 			userData[userIndex].signedIn = true
-			props.method( userData[userIndex] )
+			props.setUser( JSON.stringify( userData[userIndex] ) )
 
 		}
 		else {
@@ -62,7 +64,7 @@ export default function UserSignIn( props ) {
 			// User does not exist, apply default settings
 			defaultUser.name = fieldUsername
 			userData.push( defaultUser )
-			props.method( defaultUser )
+			props.setUser( JSON.stringify( defaultUser ) )
 		}
 
 		// Update localstorage user data

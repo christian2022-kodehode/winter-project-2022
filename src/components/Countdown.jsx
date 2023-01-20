@@ -1,26 +1,9 @@
-import { useState } from "react"
+// Props:
+// messages={ messages } stringified object state
+// channel={ channel } numeric index state
+// zone={ zone } numeric index state
 
-//JSX Components
-import UserPanel		from "./UserPanel"
-import Channels			from "./Channels"
-import Compose			from "./Compose"
 import CountdownTimer	from "./CountdownTimer"
-
-let userData = {}
-if( localStorage.getItem( "userData" ) ) {
-	userData = JSON.parse( localStorage.getItem( "userData" ) )
-}
-
-function findSignedInUser() {
-	for( let i = 0; i < userData.length; i++ ) {
-		if( userData[i].signedIn === true ) {
-			
-			return userData[i]
-		}
-	}
-
-	return false
-}
 
 export default function Countdown( props ) {
 
@@ -43,36 +26,19 @@ export default function Countdown( props ) {
 	}
 	const target = new Date( offsetTime ).toLocaleTimeString( "no-NB", dateOptions )
 
-	const channelId = 3
-
-	const [user, setUser] = useState( findSignedInUser() )
-
 	return(
 
-		<main className="countdown">
-
-			<UserPanel method={ setUser } user={ user } />
-
-			<div className="countdown__current">
-				<div className="container">
-					<div className="countdown__label">
-						<h1 className="countdown__tag">{ channel.name }</h1>
-						<div className="countdown__description">{ channel.description }</div>
-					</div>
-					<div className="countdown__time">
-						<h2 className="countdown__now">
-							-<CountdownTimer target={ offsetTime } />
-						</h2>
-						<div className="countdown__target">{ target }</div>
-					</div>
-				</div>
-
-				<Channels />
-
+		<div className="container">
+			<div className="countdown__label">
+				<h1 className="countdown__tag">{ channel.name }</h1>
+				<div className="countdown__description">{ channel.description }</div>
 			</div>
-
-			{ user.signedIn && <Compose method={ props.method } messages={ props.messages } channel={ props.channel } zone={ props.zone } /> }
-
-		</main>
+			<div className="countdown__time">
+				<h2 className="countdown__now">
+					-<CountdownTimer target={ offsetTime } />
+				</h2>
+				<div className="countdown__target">{ target }</div>
+			</div>
+		</div>
 	)
 }
