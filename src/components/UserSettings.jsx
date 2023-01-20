@@ -4,8 +4,6 @@
 // setUser={ props.setUser } state function
 // user={ props.user } stringified object state
 
-import { useState } from "react"
-
 export default function UserSettings( props ) {
 
 	const username = JSON.parse( props.user ).name
