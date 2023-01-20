@@ -83,13 +83,13 @@ html {
 		--link-focus: hsl(200deg 100% 80%);
 		--link-visited: hsl(200deg 25% 50%);
 		--link: hsl(200deg 75% 50%);
-		--message-background: hsl(200deg 10% 30% / 90%);
-		--message-border: hsl(200deg 10% 30%);
+		--message-background: hsl(200deg 10% 30% / 25%);
+		--message-border: hsl(200deg 10% 30% / 20%);
 		--message-text: hsl(200deg 10% 75%);
 		--primary-contrast: hsl(200deg 10% 75%);
 		--primary-focus: hsl(200deg 100% 40%);
 		--primary-transparent: hsl(200deg 100% 30% / 80%);
-		--primary: hsl(200deg 100% 30%);
+		--primary: hsl(200deg 100% 40%);
 		--secondary-contrast: hsl(200deg 25% 75%);
 		--secondary-focus: hsl(200deg 100% 40%);
 		--secondary-transparent: hsl(200deg 25% 30% / 90%);
@@ -477,6 +477,8 @@ button {
 		opacity: 0.5;
 		overflow-anchor: none;
 		text-align: center;
+		font-weight: 400;
+		text-transform: capitalize;
 	}
 
 	.chat__anchor {
