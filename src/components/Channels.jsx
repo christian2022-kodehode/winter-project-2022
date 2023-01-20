@@ -1,24 +1,43 @@
-import channels from "../data/messages.json"
+// Props:
+// setChannel={ setChannel } state function
+// channel={ channel } numeric state
+// messages={ messages } stringified object state
 
-const user = { zone: "Europe/Oslo" }
+// import channels from "../data/messages.json"
 
-export default function Channels() {
+// const user = { zone: "Europe/Oslo" }
+
+export default function Channels( props ) {
+
+	const channels = JSON.parse( props.messages )
+
+	function switchChannel( event ) {
+
+		event.preventDefault()
+
+		for( let i = 0; i < channels.length; i++ ) {
+			if( channels[i].name === event.target.innerText ) {
+
+				props.setChannel(i)
+				break
+			}
+		}
+		return false
+	}
 
 	const children = channels.map(
-		( channel ) => {
-			if( channel.zone === "local"
-			|| channel.zone === user.zone
-			|| channel.zone === "UTC" ) {
-				return(
-					<a
-					key={ channel.key }
-					href={ "#" + channel.name }
-					title={ channel.description }
-					className="tag" >
-						{ channel.name }
-					</a>
-				)
-			}
+		( tag ) => {
+			return(
+				<a
+				key={ tag.key }
+				href={ "#" + tag.name }
+				title={ tag.description }
+				className={ tag.name === channels[props.channel].name ? "tag tag--active" : "tag" }
+				onClick={ switchChannel }
+				>
+					{ tag.name }
+				</a>
+			)
 		}
 	)
 
