@@ -49,16 +49,14 @@ export default function App() {
 		<>
 
 			<main className="countdown">
+				<UserPanel setUser={ setUser } user={ user } setZone={ setZone } />
 				<div className="countdown__current">
 
-					<UserPanel setUser={ setUser } user={ user } setZone={ setZone } />
 					<Countdown messages={ messages } channel={ channel } zone={ zone } />
 					<Channels setChannel={ setChannel } channel={ channel } messages={ messages } />
 
 				</div>
-
 				{ JSON.parse( user ).signedIn && <Compose user={ user } setMessages={ setMessages } messages={ messages } channel={ channel } zone={ zone } /> }
-
 			</main>
 			<MessageHistory messages={ messages } channel={ channel } zone={ zone } />
 			<Jump />
