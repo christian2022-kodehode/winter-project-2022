@@ -408,6 +408,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: 1em;
+	padding-bottom: 3em;
 }
 	.countdown__current {
 		display: flex;
