@@ -5,7 +5,6 @@ import { useState } from "react"
 // setMessages={ setMessages } state function
 // messages={ messages } state stringified object
 // channel={ channel } index numeral
-// zone={ zone } index numeral
 
 export default function Compose( props ) {
 
@@ -20,50 +19,39 @@ export default function Compose( props ) {
 
 		event.preventDefault()
 
-		// let channelLastKey = null // unsure if needed
-
 		// Parse object props
 		const user = JSON.parse( props.user )
 		const data = JSON.parse( props.messages )
 		const channel = data[props.channel]
 
-		// Unsre if key of last channel is needed
-		// for( let i = 0; i < channel.length; i++ ) {
 
-		// 	if( channel[i].key > channelLastKey ) {
-
-		// 		channelLastKey = channel[i].key
-		// 	}
-		// }
-		// console.log("channel",channel)
-		
-
-
-		// console.log("checking channel.zones",channel.zones)
-		// const channelIndex = props.channel
+		// 1. Determine timezone
+		// Some channels are split based on the timezone of target time
 		let zoneLastKey = 0
 		let zoneIndex = null
 		let zoneName = channel.zone
 
-		// Check if this channel is split into user-specific time zones
+		// Check if channel splits into local timezones
 		if( channel.zone === "local" ) {
 
 			zoneName = user.zone
 		}
 
-		// Find highest message key and index of user time zone
+		// Find index of timezone, and last timezone key 
 		for( let i = 0; i < channel.zones.length; i++ ) {
 
+			// Check if index exists matching current timezone
 			if( channel.zones[i].zone === zoneName ) {
 				zoneIndex = i
 			}
 
+			// Check if key for current timezone is highest so far
 			if( channel.zones[i].key > zoneLastKey ) {
 				zoneLastKey = channel.zones[i].key
 			}
 		}
 
-		// Create zone entry if it does not exist
+		// Create timezone entry if missing
 		if( zoneIndex === null) {
 
 			channel.zones.push (
@@ -74,41 +62,27 @@ export default function Compose( props ) {
 				}
 			)
 
-			// Since zone is added at end of array, we can predict its index
+			// Since timezone is added at end of array, we can predict its index
 			zoneIndex = channel.zones.length -1
 		}
-		// }
-		// else {
 
-		// 	// Create new zone array
-		// 	channel.zones =
-		// 	[
-		// 	{
-		// 	"key": 1,
-		// 	"zone": user.zone,
-		// 	"dates": []
-		// 	}
-		// 	]
 
-		// 	zoneIndex = 0 // channel.zones.length -1
-		// }
-
-		// console.log("checking channel.zones[zoneIndex]",channel.zones[zoneIndex])
+		// 2. Determine date
+		// Messages are grouped by array items for date posted
 		const dateName = new Date().toDateString()
 		let dateIndex = null
 		let dateLastKey = 0
 		
-		// Check if dates array exists for this time zone
 		if( channel.zones[zoneIndex].dates ) {
-
-			// Find index of current date, or potential key for new date
 			for( let i = 0; i < channel.zones[zoneIndex].dates.length; i++ ) {
 
+				// Check if index exists matching current date
 				if( channel.zones[zoneIndex].dates[i].date === dateName) {
 
 					dateIndex = i
 				}
 
+				// Check if key for current date is highest so far
 				if (channel.zones[zoneIndex].dates[i].key > dateLastKey) {
 
 					dateLastKey = channel.zones[zoneIndex].dates[i].key
@@ -130,22 +104,10 @@ export default function Compose( props ) {
 			// Since date is added at start of array, we can predict its index
 			dateIndex = 0
 		}
-		// else {
 
-		// 	// Create new object for current date
-		// 	channel.zones[zoneIndex].dates =
-		// 	[
-		// 	{
-		// 	"key": 1,
-		// 	"date": new Date().toDateString(),
-		// 	"messages": []
-		// 	}
-		// 	]
 
-		// 	// dateIndex = 0
-		// }
-
-		// console.log("checking channel.zones[zoneIndex].dates[dateIndex].messages",channel.zones[zoneIndex].dates[dateIndex].messages)
+		// 3. create new message
+		// We'll need to check existing messages to prevent duplicate key use
 		let messageLastKey = 0
 		if ( channel.zones[zoneIndex].dates[dateIndex].messages.length > 0 ) {
 
@@ -158,7 +120,7 @@ export default function Compose( props ) {
 				}
 			}
 		}
-		// console.log("key before", messageLastKey)
+
 		channel.zones[zoneIndex].dates[dateIndex].messages.unshift (
 			{
 			"key": ++messageLastKey,
@@ -168,8 +130,9 @@ export default function Compose( props ) {
 			"body": messageField
 			}
 		)
-		// console.log("key after", messageLastKey)
 
+
+		// 4. Update stored data and refresh React state
 		// Update and store messages array
 		data[props.channel] = channel
 		localStorage.setItem( "messageData", JSON.stringify( data ) )

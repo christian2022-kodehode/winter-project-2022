@@ -56,7 +56,7 @@ export default function App() {
 					<Channels setChannel={ setChannel } channel={ channel } messages={ messages } />
 
 				</div>
-				{ JSON.parse( user ).signedIn && <Compose user={ user } setMessages={ setMessages } messages={ messages } channel={ channel } zone={ zone } /> }
+				{ JSON.parse( user ).signedIn && <Compose user={ user } setMessages={ setMessages } messages={ messages } channel={ channel } /> }
 			</main>
 			<MessageHistory messages={ messages } channel={ channel } zone={ zone } />
 			<Jump />
