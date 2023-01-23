@@ -8,7 +8,8 @@
 "language": "nb",
 "style": "xmas",
 "time": "2023-12-24",
-"zone": "local"
+"zone": "local",
+"zones": []
 },
 {
 "key": 2,
@@ -18,7 +19,8 @@
 "language": "nb",
 "style": "doom",
 "time": "2036-01-01",
-"zone": "UTC"
+"zone": "UTC",
+"zones": []
 },
 {
 "key": 3,
@@ -28,7 +30,8 @@
 "language": "nb",
 "style": "default",
 "time": "2025-09-01",
-"zone": "Europe/Oslo"
+"zone": "Europe/Oslo",
+"zones": []
 },
 {
 "key": 4,
@@ -43,7 +46,7 @@
 	[
 	{
 	"key": 1,
-	"zone": "cet",
+	"zone": "Europe/Oslo",
 	"dates":
 		[
 		{

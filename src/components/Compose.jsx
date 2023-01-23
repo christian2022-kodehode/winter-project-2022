@@ -15,99 +15,151 @@ export default function Compose( props ) {
 		setMessageField( event.target.value )
 	}
 
-	// Process submitted data
+	// Process submitted channel
 	function submitForm( event ) {
 
 		event.preventDefault()
 
-		let channelLastKey = null
-		let zoneLastKey = null
-		let dateIndex = null
-		let dateLastKey = null
-		let messageLastKey = null
+		// let channelLastKey = null // unsure if needed
 
-		const data = JSON.parse( props.messages )
+		// Parse object props
 		const user = JSON.parse( props.user )
+		const data = JSON.parse( props.messages )
+		const channel = data[props.channel]
 
-		for( let i = 0; i < data.length; i++ ) {
+		// Unsre if key of last channel is needed
+		// for( let i = 0; i < channel.length; i++ ) {
 
-			if( data[i].key > channelLastKey ) {
+		// 	if( channel[i].key > channelLastKey ) {
 
-				channelLastKey = data[i].key
+		// 		channelLastKey = channel[i].key
+		// 	}
+		// }
+		// console.log("channel",channel)
+		
+
+
+		// console.log("checking channel.zones",channel.zones)
+		// const channelIndex = props.channel
+		let zoneLastKey = 0
+		let zoneIndex = null
+		let zoneName = channel.zone
+
+		// Check if this channel is split into user-specific time zones
+		if( channel.zone === "local" ) {
+
+			zoneName = user.zone
+		}
+
+		// Find highest message key and index of user time zone
+		for( let i = 0; i < channel.zones.length; i++ ) {
+
+			if( channel.zones[i].zone === zoneName ) {
+				zoneIndex = i
+			}
+
+			if( channel.zones[i].key > zoneLastKey ) {
+				zoneLastKey = channel.zones[i].key
 			}
 		}
 
-		if( props.channel != null ) {
+		// Create zone entry if it does not exist
+		if( zoneIndex === null) {
 
-			// Find index of current time zone, or potential key for a new one
-			for( let i = 0; i < data[props.channel].zones.length; i++ ) {
-
-				if( data[props.channel].zones[i].zone === user.zone ) {
-					props.zone = i
-				}
-
-				if( data[props.channel].zones[i].key > zoneLastKey ) {
-					zoneLastKey = data[props.channel].zones[i].key
-				}
-			}
-		}
-
-		if( props.zone != null ) {
-
-			// Find index of current date, or potential key for new date
-			for( let i = 0; i < data[props.channel].zones[props.zone].dates.length; i++ ) {
-
-				if( data[props.channel].zones[props.zone].dates[i].date === new Date().toDateString()) {
-
-					dateIndex = i
-				}
-
-				if (data[props.channel].zones[props.zone].dates[i].key > dateLastKey) {
-
-					dateLastKey = data[props.channel].zones[props.zone].dates[i].key
-				}
-			}
-		}
-		else {
-
-			// Create new zone in object
-			data[props.channel].zones.push (
+			channel.zones.push (
 				{
 				"key": ++zoneLastKey,
-				"zone": user.zone,
+				"zone": zoneName,
 				"dates": []
 				}
 			)
 
-			props.zone = data[props.channel].zones.length -1
+			// Since zone is added at end of array, we can predict its index
+			zoneIndex = channel.zones.length -1
 		}
+		// }
+		// else {
 
-		if (dateIndex != null) {
+		// 	// Create new zone array
+		// 	channel.zones =
+		// 	[
+		// 	{
+		// 	"key": 1,
+		// 	"zone": user.zone,
+		// 	"dates": []
+		// 	}
+		// 	]
 
-			// Find key for new message
-			for( let i = 0; i < data[props.channel].zones[props.zone].dates[dateIndex].messages.length; i++ ) {
+		// 	zoneIndex = 0 // channel.zones.length -1
+		// }
 
-				if( data[props.channel].zones[props.zone].dates[dateIndex].messages[i].key > messageLastKey ) {
+		// console.log("checking channel.zones[zoneIndex]",channel.zones[zoneIndex])
+		const dateName = new Date().toDateString()
+		let dateIndex = null
+		let dateLastKey = 0
+		
+		// Check if dates array exists for this time zone
+		if( channel.zones[zoneIndex].dates ) {
 
-					messageLastKey = data[props.channel].zones[props.zone].dates[dateIndex].messages[i].key
+			// Find index of current date, or potential key for new date
+			for( let i = 0; i < channel.zones[zoneIndex].dates.length; i++ ) {
+
+				if( channel.zones[zoneIndex].dates[i].date === dateName) {
+
+					dateIndex = i
+				}
+
+				if (channel.zones[zoneIndex].dates[i].key > dateLastKey) {
+
+					dateLastKey = channel.zones[zoneIndex].dates[i].key
 				}
 			}
 		}
-		else {
 
-			// Create new object for current date
-			data[props.channel].zones[props.zone].dates.unshift (
+		// Create date entry if it does not exist
+		if( dateIndex === null ) {
+
+			channel.zones[zoneIndex].dates.unshift (
 				{
 				"key": ++dateLastKey,
-				"date": new Date().toDateString(),
+				"date": dateName,
 				"messages": []
 				}
 			)
 
+			// Since date is added at start of array, we can predict its index
 			dateIndex = 0
 		}
+		// else {
 
-		data[props.channel].zones[props.zone].dates[dateIndex].messages.unshift (
+		// 	// Create new object for current date
+		// 	channel.zones[zoneIndex].dates =
+		// 	[
+		// 	{
+		// 	"key": 1,
+		// 	"date": new Date().toDateString(),
+		// 	"messages": []
+		// 	}
+		// 	]
+
+		// 	// dateIndex = 0
+		// }
+
+		// console.log("checking channel.zones[zoneIndex].dates[dateIndex].messages",channel.zones[zoneIndex].dates[dateIndex].messages)
+		let messageLastKey = 0
+		if ( channel.zones[zoneIndex].dates[dateIndex].messages.length > 0 ) {
+
+			// Find key for new message
+			for( let i = 0; i < channel.zones[zoneIndex].dates[dateIndex].messages.length; i++ ) {
+
+				if( channel.zones[zoneIndex].dates[dateIndex].messages[i].key > messageLastKey ) {
+
+					messageLastKey = channel.zones[zoneIndex].dates[dateIndex].messages[i].key
+				}
+			}
+		}
+		// console.log("key before", messageLastKey)
+		channel.zones[zoneIndex].dates[dateIndex].messages.unshift (
 			{
 			"key": ++messageLastKey,
 			"time": new Date().toJSON(),
@@ -116,7 +168,10 @@ export default function Compose( props ) {
 			"body": messageField
 			}
 		)
+		// console.log("key after", messageLastKey)
 
+		// Update and store messages array
+		data[props.channel] = channel
 		localStorage.setItem( "messageData", JSON.stringify( data ) )
 
 		// Clear textarea

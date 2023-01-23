@@ -7,14 +7,13 @@ export default function MessageHistory( props ) {
 	// channel={ channel } numeric index state
 	// zone={ zone } numeric index state
 
-	let children = "Ingen meldinger har blitt sendt enda."
-
 	const channelData = JSON.parse( props.messages )[props.channel]
 
-	if( channelData.zones && channelData.zones[props.zone].dates ) {
+	// Check if channel has any message groups (dates)
+	let children = "Ingen meldinger har blitt sendt enda."
+	if( channelData.zones[props.zone] && channelData.zones[props.zone].dates ) {
 
-		const dates = JSON.parse( props.messages )[props.channel].zones[props.zone].dates
-		children = dates.map(
+		children = channelData.zones[props.zone].dates.map(
 			( date ) => {
 				return <MessageGroup key={ date.key } date={ date } />
 			}
