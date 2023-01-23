@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react"
 
+// Todos:
+// make timer stop at 0, and trigger end message
+// reset interval when channel is switched
+// display countdowns with targets more than 1 year ahead
+
 export default function CountdownTimer( props ) {
 
 	// Format time into a human readable countdown string
@@ -19,7 +24,6 @@ export default function CountdownTimer( props ) {
 	useEffect(
 		() => {
 			setInterval( () => setTimer( getTimeRemaining() ), 1000 )
-			// todo: make timer stop at 0, and trigger end message
 		}
 	)
 
